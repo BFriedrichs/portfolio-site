@@ -201,6 +201,8 @@ article:last-child {
   text-align: center;
   padding: 10px 70px;
   border: 1px solid #3d4451;
+  cursor: pointer;
+  transition: all .3s;
 }
 
 #downloadButton>span:nth-child(1) {
@@ -213,6 +215,11 @@ article:last-child {
   display: block;
   font-weight: 100;
   font-size: 0.8em;
+}
+
+#downloadButton:hover {
+  color: #fff;
+  background: #3d4451;
 }
 
 .caption {
@@ -466,6 +473,10 @@ svg {
   .topNav li {
     margin: 10px 8px;
     font-size: 0.8em;
+  }
+
+  .sectionHeader {
+    text-align: center;
   }
 
   .form input {

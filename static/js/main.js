@@ -127,4 +127,20 @@ $(document).ready(function() {
   $('#toContact').on('click', function() {
       jhtml.animate({ scrollTop: $('#emailform').offset().top}, 1500, function() { ignoreScrollActions = false; });
   });
+
+  $('#sendButton').on('click', function() {
+    $.ajax({
+      method: 'POST',
+      url: '/mail',
+      data: {
+        sender: $('#formName').val(),
+        email: $('#formEmail').val(),
+        message: $('#formMsg').val()
+      }
+    }).done(function(data) {
+      if(data && data.ok) {
+        console.log('Email sent');
+      }
+    })
+  });
 });
