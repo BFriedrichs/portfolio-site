@@ -365,41 +365,16 @@ svg {
   text-align: center;
   line-height: 60px;
   cursor: pointer;
-  overflow: hidden;
-}
-
-#sendButton::after {
-  z-index: -1;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: inherit;
-  content: '';
-  transition: background .5s, height .5s, width .5s, left .5s;
   background: #3861b1;
+  border: 2px solid #3861b1;
+  transition: all .3s;
 }
 
 #sendButton:hover {
   color: #3861b1;
+  background: #fff;
 }
 
-#sendButton:hover::after {
-  content: '';
-
-  border: solid transparent;
-	height: 0;
-	width: 0;
-
-  position: absolute;
-  top: 50%;
-  left: 70%;
-
-	border-left-color: #3861b1;
-  background: none;
-	border-width: 15px;
-  transform: translateY(-55%) scaleY(0.7);
-}
 
 #emaildirect {
   background: #3861b1;
@@ -437,7 +412,6 @@ svg {
 }
 
 #footerImage {
-  margin-left: -50px;
   width: 120%;
   height: inherit;
   background-image: url('../img/keyboard-compressed.jpg');
@@ -479,8 +453,33 @@ svg {
   color: #f1f1f1;
 }
 
-@media(min-width: 769px) {
+@media(max-width: 768px) {
+  #header {
+    height: 30vh;
+  }
 
+  #pictureMe {
+    margin-left: -15%;
+    width: 30%;
+  }
+
+  .topNav li {
+    margin: 10px 8px;
+    font-size: 0.8em;
+  }
+
+  .form input {
+    margin-top: 20px;
+    width: 100%;
+    float: left;
+  }
+
+  #sendButton {
+    width: 100%;
+  }
+}
+
+@media(min-width: 769px) {
   .fadeIn {
     margin-left: 0;
     margin-right: 0;

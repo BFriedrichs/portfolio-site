@@ -28,12 +28,6 @@
   padding: 15px;
 }
 
-@media(max-width: 768px) {
-  .fancyList>li {
-    width: 100%;
-  }
-}
-
 .fancyList.white>li {
   background-color: #fff;
   color: #3d4451;
@@ -71,58 +65,68 @@
   float: right;
 }
 
+@media(max-width: 768px) {
+  .fancyList>li {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .fancyList .timeLine {
+    display: none;
+  }
+}
+
 @media(min-width: 769px) {
+  .fancyList .entryHeader::before {
+    z-index: 10;
+    position: absolute;
+    top: 20px;
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: #3d4451;
+    border-radius: 50%;
+  }
 
-.fancyList .entryHeader::before {
-  z-index: 10;
-  position: absolute;
-  top: 20px;
-  content: '';
-  width: 20px;
-  height: 20px;
-  background: #3d4451;
-  border-radius: 50%;
-}
+  .fancyList>li:nth-child(odd) .entryHeader::before {
+    left: 125%;
+    margin-left: -10px;
+  }
 
-.fancyList>li:nth-child(odd) .entryHeader::before {
-  left: 125%;
-  margin-left: -10px;
-}
+  .fancyList>li:nth-child(even) .entryHeader::before {
+    right: 125.05%;
+    margin-right: -10px;
+  }
 
-.fancyList>li:nth-child(even) .entryHeader::before {
-  right: 125.05%;
-  margin-right: -10px;
-}
+  .fancyList>li::before {
+    transform: scale(0.6, 1);
+    position: absolute;
+    top: 10px;
+    border: solid transparent;
+    content: '';
+    border-width: 20px;
+    width: 0;
+    height: 0;
+  }
 
-.fancyList>li::before {
-  transform: scale(0.6, 1);
-  position: absolute;
-  top: 10px;
-  border: solid transparent;
-  content: '';
-  border-width: 20px;
-  width: 0;
-  height: 0;
-}
+  .fancyList>li:nth-child(odd)::before {
+    left: 100%;
+    border-left-color: #3d4451;
+    transform-origin: left;
+  }
 
-.fancyList>li:nth-child(odd)::before {
-  left: 100%;
-  border-left-color: #3d4451;
-  transform-origin: left;
-}
+  .fancyList>li:nth-child(even)::before {
+    right: 100%;
+    border-right-color: #3d4451;
+    transform-origin: right;
+  }
 
-.fancyList>li:nth-child(even)::before {
-  right: 100%;
-  border-right-color: #3d4451;
-  transform-origin: right;
-}
+  .fancyList.white>li:nth-child(odd)::before {
+      border-left-color: #fff;
+  }
 
-.fancyList.white>li:nth-child(odd)::before {
-    border-left-color: #fff;
-}
-
-.fancyList.white>li:nth-child(even)::before {
-    border-right-color: #fff;
-}
+  .fancyList.white>li:nth-child(even)::before {
+      border-right-color: #fff;
+  }
 
 }
