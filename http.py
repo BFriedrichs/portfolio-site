@@ -1,5 +1,6 @@
 import tornado.ioloop
 import tornado.web
+import tornado.autoreload
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -12,5 +13,11 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8000)
+    def fn():
+        print "reloading..."
+    print "loaded.."
+    app.listen(80)
+    tornado.autoreload.add_reload_hook(fn)
+    tornado.autoreload.start()
+
     tornado.ioloop.IOLoop.current().start()
