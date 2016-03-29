@@ -1,0 +1,145 @@
+.fancyList {
+  list-style-type: none;
+  width: 100%;
+  display: inline-block;
+}
+
+
+.fancyList>li {
+  position: relative;
+  clear: both;
+  width: 40%;
+  background-color: #3d4451;
+  color: #fff;
+  padding: 15px;
+}
+
+@media(max-width: 768px) {
+  .fancyList>li {
+    width: 100%;
+  }
+}
+
+.fancyList.white>li {
+  background-color: #fff;
+  color: #3d4451;
+}
+
+.fancyList>li>.entryHeader>p:nth-child(1) {
+  font-weight: bold;
+  font-size: 0.5em;
+  margin: 0;
+}
+
+.fancyList>li>.entryHeader>p:nth-child(2) {
+  margin: 0;
+  font-weight: 100;
+  font-size: 0.5em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fff;
+}
+
+.fancyList.white>li>.entryHeader>p:nth-child(2) {
+  border-bottom: 1px solid #3d4451;
+}
+
+.fancyList>li>.entryContent {
+  padding-top: 10px;
+  font-weight: 100;
+  font-size: 0.5em;
+}
+
+.fancyList>li:nth-child(odd) {
+  float: left;
+}
+
+.fancyList>li:nth-child(even) {
+  float: right;
+}
+
+@media(min-width: 769px) {
+
+.fancyList .entryHeader::before {
+  z-index: 10;
+  position: absolute;
+  top: 20px;
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: #3d4451;
+  border-radius: 50%;
+}
+
+.fancyList>li:nth-child(odd) .entryHeader::before {
+  left: 125%;
+  margin-left: -10px;
+}
+
+.fancyList>li:nth-child(even) .entryHeader::before {
+  right: 125.05%;
+  margin-right: -10px;
+}
+
+.fancyList>li::before {
+  transform: scale(0.6, 1);
+  position: absolute;
+  top: 10px;
+  border: solid transparent;
+  content: '';
+  border-width: 20px;
+  width: 0;
+  height: 0;
+}
+
+.fancyList>li:nth-child(odd)::before {
+  left: 100%;
+  border-left-color: #3d4451;
+  transform-origin: left;
+}
+
+.fancyList>li:nth-child(even)::before {
+  right: 100%;
+  border-right-color: #3d4451;
+  transform-origin: right;
+}
+
+.fancyList.white>li:nth-child(odd)::before {
+    border-left-color: #fff;
+}
+
+.fancyList.white>li:nth-child(even)::before {
+    border-right-color: #fff;
+}
+
+.fancyList>li::after {
+  z-index: 5;
+  position: absolute;
+  content: '';
+  top: 30px;
+  width: 10px;
+  height: 100%;
+  background: #3861b1;
+  border-radius: 5px;
+}
+
+.fancyList.white>li::after {
+  background: #fff;
+}
+
+.fancyList>li:nth-child(odd)::after {
+    margin-left: -5px;
+    left: 125%;
+}
+
+.fancyList>li:nth-child(even)::after {
+  margin-left: -5px;
+  left: -25%;
+}
+
+.fancyList>li:last-child::after {
+    width: 0;
+    height: 0;
+    top: -40px;
+}
+
+}

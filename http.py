@@ -1,22 +1,27 @@
 import tornado.ioloop
 import tornado.web
 import tornado.autoreload
+import os
+
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world")
+        self.render("index.html", title="My title")
 
-def make_app():
-    return tornado.web.Application([
-        (r"/", MainHandler),
-    ])
+settings = {'debug': True,
+            'static_path': os.path.join(os.path.dirname(__file__), 'static'),
+            'template_path': os.path.join(os.path.dirname(__file__), 'templates')}
+
+handlers = [(r'/', MainHandler),
+            #(r'/favicon.ico', tornado.web.StaticFileHandler, {'path': favicon_path}),
+            ]
 
 if __name__ == "__main__":
-    app = make_app()
+    app = tornado.web.Application(handlers, **settings)
     def fn():
         print "reloading..."
-    print "loaded.."
-    app.listen(80)
+    app.listen(8000)
+    print "Server restarted.."
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()
 
