@@ -489,12 +489,12 @@ svg {
   }
 
   .fadeRight {
-    margin-left: -20px;
+    margin-right: -20px;
     opacity: 0;
   }
 
   .fadeLeft {
-    margin-right: -20px;
+    margin-left: -20px;
     opacity: 0;
   }
 }
