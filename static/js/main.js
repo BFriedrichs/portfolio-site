@@ -26,15 +26,15 @@ $(document).ready(function() {
 
   var fields = {
     name: {
-      text: "Your name",
+      text: "Your name*",
       elem: $('#formName'),
     },
     email: {
-      text: "Your E-Mail",
+      text: "Your email*",
       elem: $('#formEmail')
     },
     msg: {
-      text: "Your message",
+      text: "Your message*",
       elem: $('#formMsg')
     }
   };
@@ -129,17 +129,30 @@ $(document).ready(function() {
   });
 
   $('#sendButton').on('click', function() {
+
+    var sender = $('#formName').val(),
+        email = $('#formEmail').val(),
+        message = $('#formMsg').val();
+
+    if(!sender || !email || !message) {
+      $('.bg-danger').css('height', '53px');
+      $('.bg-success').css('height', '0');
+    }
+
     $.ajax({
       method: 'POST',
       url: '/mail',
       data: {
-        sender: $('#formName').val(),
-        email: $('#formEmail').val(),
-        message: $('#formMsg').val()
+        sender: sender,
+        email: email,
+        message: message
       }
     }).done(function(data) {
       if(data && data.ok) {
-        console.log('Email sent');
+        $('.bg-danger').css('height', '0');
+        $('.bg-success').css('height', '53px');
+
+        $('#sendButton').css('border', '0').css('height', '0');
       }
     })
   });

@@ -365,6 +365,7 @@ svg {
 }
 
 #sendButton {
+  top: 20px;
   position: relative;
   width: 250px;
   height: 65px;
@@ -375,6 +376,7 @@ svg {
   background: #3861b1;
   border: 2px solid #3861b1;
   transition: all .3s;
+  clear: both;
 }
 
 #sendButton:hover {
@@ -382,6 +384,16 @@ svg {
   background: #fff;
 }
 
+.bg-danger, .bg-success {
+  margin-top: -11px;
+  font-size: 18px;
+  line-height: 53px;
+  font-weight: lighter;
+  height: 0;
+  transition: all 0.3s;
+  overflow: hidden;
+  min-height: 0px;
+}
 
 #emaildirect {
   background: #3861b1;

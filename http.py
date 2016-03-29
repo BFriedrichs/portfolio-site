@@ -23,10 +23,10 @@ class MailHandler(tornado.web.RequestHandler):
                 'To: ' + __EMAIL,
                 'Subject: New Message from website',
                 '',
-                'Name: ' + name,
-                'E-Mail: ' + email,
+                'Name: ' + name.encode('utf-8'),
+                'E-Mail: ' + email.encode('utf-8'),
                 '',
-                message
+                message.encode('utf-8')
             ])
 
             server.sendmail("mail@server.de", __EMAIL, msg)
