@@ -106,6 +106,7 @@ $(document).ready(function() {
 
     }
   }
+
   var jhtml = $('html, body');
   $('#backTop').on('click', function() {
     ignoreScrollActions = true;
@@ -126,6 +127,17 @@ $(document).ready(function() {
 
   $('#toContact').on('click', function() {
       jhtml.animate({ scrollTop: $('#emailform').offset().top}, 1500, function() { ignoreScrollActions = false; });
+  });
+
+  $('#downloadButton').on('click', function() {
+    $.ajax({
+      method: 'POST',
+      url: '/pdf'
+    }).done(function(data) {
+      if(data && data.ok) {
+        console.log('success');
+      }
+    })
   });
 
   $('#sendButton').on('click', function() {
@@ -155,5 +167,12 @@ $(document).ready(function() {
         $('#sendButton').css('border', '0').css('height', '0');
       }
     })
+  });
+});
+
+$(window).load(function() {
+  $('.fancyList').each(function(i, e) {
+    var childs = $(e).find('.fadeIn');
+    $(e).find('.timeLine').css('height', $(e).height() - childs.last().outerHeight());
   });
 });

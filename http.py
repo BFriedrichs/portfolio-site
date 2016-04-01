@@ -3,6 +3,7 @@ import tornado.web
 import tornado.autoreload
 import os
 import smtplib
+import pdfkit
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -34,12 +35,27 @@ class MailHandler(tornado.web.RequestHandler):
 
             self.write({'ok': True})
 
+class PdfHandler(tornado.web.RequestHandler):
+    def post(self):
+        css = [
+            'static/css/bootstrap.min.css',
+            'static/css/extras.css',
+            'static/css/material-icons.css',
+            'static/css/style.css'
+        ]
+
+        pdfkit.from_file('templates/index.html', 'out.pdf', css=css)
+        self.set_header('Content-Type', 'application/pdf')
+        self.set_header('Content-Disposition', 'attachment; filename="out.pdf"')
+        self.write(b64decode(escape.url_unescape(self.request.body.split("=")[1])))
+
 settings = {'debug': True,
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'template_path': os.path.join(os.path.dirname(__file__), 'templates')}
 
 handlers = [(r'/', MainHandler),
             (r'/mail', MailHandler),
+            (r'/pdf', PdfHandler)
             #(r'/favicon.ico', tornado.web.StaticFileHandler, {'path': favicon_path}),
             ]
 

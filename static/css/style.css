@@ -56,7 +56,6 @@
   margin-left: -50px;
   width: 120%;
   height: inherit;
-  background-image: url('../img/keyboard-compressed.jpg');
   background-size: cover;
   background-position: bottom;
   transform: rotate(5deg);
@@ -178,11 +177,11 @@ article:last-child {
   width: 100%;
 }
 
-#infoList>ul>li>span:nth-child(1) {
+#infoList .list-head {
   font-weight: bold;
 }
 
-#infoList>ul>li>span:nth-child(2) {
+#infoList span {
   font-weight: 100;
 }
 
@@ -227,7 +226,6 @@ article:last-child {
   height: 300px;
   clear: both;
 
-  background-image: url('../img/photo-spacer-compressed.jpg');
   background-size: cover;
   background-position: center;
   transition:background-position .1s;
@@ -331,10 +329,6 @@ svg {
   stroke-linecap: round;
 }
 
-#contact.caption {
-    background-image: url('../img/mail-compressed.jpg');
-}
-
 .form {
   margin: 100px 0;
 }
@@ -433,7 +427,6 @@ svg {
 #footerImage {
   width: 120%;
   height: inherit;
-  background-image: url('../img/keyboard-compressed.jpg');
   background-size: cover;
   background-position: bottom;
   transform: rotate(-5deg);
@@ -474,7 +467,7 @@ svg {
 
 @media(max-width: 768px) {
   #header {
-    height: 30vh;
+    height: 55vw;
   }
 
   #pictureMe {
