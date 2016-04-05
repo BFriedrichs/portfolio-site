@@ -74,7 +74,6 @@ if __name__ == "__main__":
     if not myopts:
         port = 8000
 
-    print port
     app = tornado.web.Application(handlers, **settings)
     def fn():
         print "reloading..."

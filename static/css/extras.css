@@ -79,6 +79,10 @@
   color: #3d4451;
 }
 
+.fancyList.white a:hover {
+  color: #aaa;
+}
+
 @media(max-width: 768px) {
   .fancyList>li {
     width: 100%;
@@ -108,7 +112,7 @@
   }
 
   .fancyList>li:nth-child(even) .entryHeader::before {
-    right: 125.05%;
+    right: 125%;
     margin-right: -10px;
   }
 

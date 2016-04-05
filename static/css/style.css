@@ -31,11 +31,17 @@
   background-color: #3d4451;
 }
 
+body {
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
 * {
   font-family: OpenSans;
   font-size: 1.2em;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 
@@ -114,6 +120,8 @@
 
 article {
   margin: 50px 0;
+  display: inline-block;
+  width: 100%;
 }
 
 article:last-child {
@@ -298,7 +306,7 @@ article:last-child {
 }
 
 #skillCircles {
-  display: inline-block;
+  width: 100%;
 }
 
 .skillText {
@@ -348,10 +356,6 @@ svg {
   display: inline-block;
 }
 
-.form>div {
-  padding: 5px;
-}
-
 .form .textarea {
   display:inline-block;
   min-height: 250px;
@@ -362,9 +366,7 @@ svg {
 }
 
 .form .inputWithLabel {
-  padding: 5px;
   float: left;
-
 }
 
 .form .inputWithLabel:nth-child(2) {
@@ -376,9 +378,8 @@ svg {
   font-size: 0.7em;
 }
 
-.form .inputWithLabel label::before {
-  float: right;
-  content: '.';
+.form .inputWithLabel label::after {
+  content: 'yourinput';
   visibility: hidden;
 }
 
@@ -510,7 +511,45 @@ svg {
   color: #f1f1f1;
 }
 
+.col-4, .col-6, .col-8, .col-12, .col-offset-2, .col-mobile-12 {
+  float: left;
+}
+
+.col-offset-2 {
+  margin-left: 16.666%;
+}
+
+.col-4 {
+  width: 33.333%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-8 {
+  width: 66.666%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+.col-6.inputWithLabel {
+  width: calc(50% - 10px);
+}
+
+@media (min-width: 992px) {
+  .col-md-4 {
+    width: 33.33333333%;
+  }
+}
+
 @media(max-width: 768px) {
+  .col-mobile-12 {
+    width: 100%;
+  }
+
   #header {
     height: 55vw;
   }
@@ -540,6 +579,7 @@ svg {
 }
 
 @media(min-width: 769px) {
+
   .fadeIn {
     margin-left: 0;
     margin-right: 0;
