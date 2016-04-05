@@ -60,6 +60,7 @@ body {
 }
 
 #headerImage {
+  background-image: url('../img/keyboard-compressed.jpg');
   margin-left: -50px;
   width: 120%;
   height: inherit;
@@ -103,11 +104,15 @@ body {
 }
 
 #pictureMe {
+  background-image: url('../img/self.jpg');
+  background-size: cover;
+
+  background-position: 50% 50%;
+
   position: absolute;
   bottom: 0;
   left: 50%;
   margin-left: -10%;
-  background: #3861b1;
   border-radius: 100%;
   width: 20%;
 }
@@ -218,7 +223,8 @@ article:last-child {
 
 #downloadButton {
   margin: 75px auto;
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   text-align: center;
   padding: 10px 70px;
   border: 1px solid #3d4451;
@@ -244,6 +250,7 @@ article:last-child {
 }
 
 .caption {
+  background-image: url('../img/photo-spacer-compressed.jpg');
   width:100%;
   height: 300px;
   clear: both;
@@ -349,6 +356,10 @@ svg {
   stroke-width: 10px;
   stroke-linejoin: round;
   stroke-linecap: round;
+}
+
+#contact.caption {
+    background-image: url('../img/mail-compressed.jpg');
 }
 
 .form {
@@ -471,6 +482,7 @@ svg {
 }
 
 #footerImage {
+  background-image: url('../img/keyboard-compressed.jpg');
   width: 120%;
   height: inherit;
   background-size: cover;
@@ -511,7 +523,10 @@ svg {
   color: #f1f1f1;
 }
 
-.col-4, .col-6, .col-8, .col-12, .col-offset-2, .col-mobile-12 {
+.col-4, .col-6, .col-8, .col-12,
+.col-offset-2,
+.col-mobile-10, .col-mobile-12,
+.col-mobile-offset-1 {
   float: left;
 }
 
@@ -541,11 +556,19 @@ svg {
 
 @media (min-width: 992px) {
   .col-md-4 {
-    width: 33.33333333%;
+    width: 33.333%;
   }
 }
 
 @media(max-width: 768px) {
+  .col-offset-mobile-1 {
+    margin-left: 8.333%;
+  }
+
+  .col-mobile-10 {
+    width: 83.333%;
+  }
+
   .col-mobile-12 {
     width: 100%;
   }
