@@ -38,6 +38,7 @@
   margin: 0;
 }
 
+
 #header {
   position: relative;
   width: 100%;
@@ -185,6 +186,19 @@ article:last-child {
   font-weight: 100;
 }
 
+#infoList a {
+  color: #3d4451;;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all .3s;
+  font-size: 1em;
+}
+
+#infoList a:hover {
+  border-bottom-color: #3d4451;;
+}
+
+
 .welcomeText {
   font-size: 1.2em;
   margin-top: 100px;
@@ -331,30 +345,48 @@ svg {
 
 .form {
   margin: 100px 0;
+  display: inline-block;
 }
 
-.form input {
-  width: calc(50% - 10px);
-  float: left;
-}
-
-.form input:nth-child(2) {
-    float: right;
+.form>div {
+  padding: 5px;
 }
 
 .form .textarea {
   display:inline-block;
   min-height: 250px;
   width: 100%;
-  margin: 20px 0;
   resize: vertical;
   font-size: 1em;
   position: relative;
 }
 
-.form input, .form .textarea {
-  font-weight: 100;
+.form .inputWithLabel {
   padding: 5px;
+  float: left;
+
+}
+
+.form .inputWithLabel:nth-child(2) {
+    float: right;
+}
+
+.form .inputWithLabel label {
+  font-weight: lighter;
+  font-size: 0.7em;
+}
+
+.form .inputWithLabel label::before {
+  float: right;
+  content: '.';
+  visibility: hidden;
+}
+
+.form input, .form .textarea {
+  width: 100%;
+  font-weight: 100;
+  font-size: 0.7em;
+  padding: 10px 15px;
   border: 1px solid #cccccc;
 }
 
@@ -366,11 +398,13 @@ svg {
   color: white;
   text-align: center;
   line-height: 60px;
+  font-size: 1em;
   cursor: pointer;
   background: #3861b1;
-  border: 2px solid #3861b1;
-  transition: all .3s;
+  border: 1px solid #3861b1;
+
   clear: both;
+  font-weight: lighter;
 }
 
 #sendButton:hover {
@@ -383,7 +417,7 @@ svg {
   font-size: 18px;
   line-height: 53px;
   font-weight: lighter;
-  height: 0;
+  max-height: 0;
   transition: all 0.3s;
   overflow: hidden;
   min-height: 0px;
@@ -396,6 +430,17 @@ svg {
 
 #emaildirect .spacer {
   background: white;
+}
+
+#emaildirect a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all .3s;
+}
+
+#emaildirect a:hover {
+  border-bottom-color: #fff;
 }
 
 .emailAddress{
@@ -485,7 +530,6 @@ svg {
   }
 
   .form input {
-    margin-top: 20px;
     width: 100%;
     float: left;
   }

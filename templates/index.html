@@ -28,8 +28,8 @@
     </style>
     <script>
       function decodeEmail() {
-        var e = ['bjo<!-- @Hi -->', 'ern@frie<!-- world.de -->', 'drichs1.de'];
-        document.write(e[0] + e[1] + e[2]);
+        var e = ['bjo', 'ern@frie', 'drichs1.de'];
+        document.write('<a href="mailto:' + e.join('') + '">' + e.join('<!-- @Word@.de -->') + '</a>' );
       }
     </script>
   </head>
@@ -62,13 +62,13 @@
               <span class="col-xs-12 col-sm-4 list-head">AGE</span><span id="age" class="col-xs-12 col-sm-8">20</span>
             </li>
             <li>
-              <span class="col-xs-12 col-sm-4 list-head">ADDRESS</span><span class="col-xs-12 col-sm-8">45141 Essen, Germany </br>Auf der Union 4a</span>
+              <span class="col-xs-12 col-sm-4 list-head">LOCATION</span><span class="col-xs-12 col-sm-8">Germany, NRW
             </li>
             <li>
               <span class="col-xs-12 col-sm-4 list-head">E-MAIL</span><span class="col-xs-12 col-sm-8"><script>decodeEmail()</script></span>
             </li>
             <li>
-              <span class="col-xs-12 col-sm-4 list-head">PHONE</span><span class="col-xs-12 col-sm-8">+49 172 1853674</span>
+              <span class="col-xs-12 col-sm-4 list-head">PHONE</span><span class="col-xs-12 col-sm-8">On request</span>
             </li>
           </ul>
         </div>
@@ -109,13 +109,13 @@
             <div class="timeLine"></div>
             <li class="fadeIn fadeRight">
               <div class="entryHeader">
-                <p>UNIVERSITY OF DUISBURG-ESSEN</p>
-                <p>October 2013 - Now</p>
+                <p>LISE-MEITNER GYMNASIUM</p>
+                <p>August 2005 - March 2013</p>
               </div>
               <div class="entryContent">
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Mauris et pulvinar ligula.
-                Praesent maximus ornare quam.
+                First year of G8 students (twelve instead of thirteen years of school),
+                schools werent completely adapted yet which caused a bit of trouble in the early years.
+                Taking maths and computer science as advanced courses was an easy choice and made the rest more bearable.
               </div>
             </li>
             <li class="fadeIn fadeLeft">
@@ -124,9 +124,10 @@
                 <p>October 2013 - Now</p>
               </div>
               <div class="entryContent">
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Mauris et pulvinar ligula.
-                Praesent maximus ornare quam.
+                After school it was obvious for me I was going to pursue computer science.
+                I enrolled for my <a href="https://www.uni-due.de/de/studium/angebot.php?id=1" target="_blank">bachelor degree course</a>,
+                because it not solely teaches about development but also business studies and
+                how to manage a project.
               </div>
             </li>
           </ul>
@@ -148,9 +149,9 @@
                 <p>October 2014 - Now</p>
               </div>
               <div class="entryContent">
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Mauris et pulvinar ligula.
-                Praesent maximus ornare quam.
+                I started my job at <a href="http://greyrook.com/" target="_blank">Greyrook Entertainment</a> for financial support while im at university,
+                it's a small but great team of software developers.
+                From working there I've learned a lot about working in a team and development cycles in general.
               </div>
             </li>
             <li class="fadeIn fadeLeft">
@@ -159,9 +160,9 @@
                 <p>March 2015 - August 2015</p>
               </div>
               <div class="entryContent">
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Mauris et pulvinar ligula.
-                Praesent maximus ornare quam.
+                One semester long <a href="http://sep.icb.uni-due.de/" target="_blank">software development project</a>:
+                As a team of six we were to create a Java application based on the requirements of a simulated client.
+                Really interesting experience working with everyone on the same level.
               </div>
             </li>
             <li class="fadeIn fadeRight">
@@ -170,9 +171,8 @@
                 <p>-</p>
               </div>
               <div class="entryContent">
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Mauris et pulvinar ligula.
-                Praesent maximus ornare quam.
+                During my free time I like to work on smaller scaled, (mostly) personal projects to get a grasp of how things work.
+                Including OpenGl (WebGl), general C and C++, Android, and various others.
               </div>
             </li>
           </ul>
@@ -187,7 +187,7 @@
           <div class="skillText">
             I'm constantly looking to improve my skills at programming
             and am also interested in various aspects of Design, especially in context of web development.
-            Everyone has his own style, but a look left and right - be it only to evaluate or discuss - never hurts.
+            Everyone has their own style, but a look left and right - be it only to evaluate or discuss - never hurts.
           </div>
           <div id="skillCircles">
             <div class="col-md-4 col-sm-6 col-xs-12 skillCircle">
@@ -261,19 +261,31 @@
           <div class="spacer"></div>
 
           <div id="form" class="form">
-            <input id="formName" type="text" placeholder="">
-            <input id="formEmail" type="text" placeholder="">
-            <textarea id="formMsg" class="textarea" contenteditable="true" placeholder=""></textarea>
-            <div class="col-xs-12 bg-danger">
-              <span class="material-icons">warning</span>
-              <span id="warn-text">Please make sure you entered your name, your email and left a message.</span>
+            <div class="col-xs-6 inputWithLabel">
+              <label for="formName"></label>
+              <input id="formName" type="text" placeholder="*">
             </div>
-            <div class="col-xs-12 bg-success">
-              <span class="material-icons">check_circle</span>
-              <span id="success-text">E-Mail sent successfully.</span>
+            <div class="col-xs-6 inputWithLabel">
+              <label for="formEmail"></label>
+              <input id="formEmail" type="text" placeholder="*">
             </div>
-            <div id="sendButton" contenteditable="false">Send</div>
+            <div class="col-xs-12 inputWithLabel">
+              <label for="formMsg"></label>
+              <textarea id="formMsg" class="textarea" contenteditable="true" placeholder="*"></textarea>
+            </div>
+            <div class="col-xs-12">
+              <div class="col-xs-12 bg-danger">
+                <span class="material-icons">warning</span>
+                <span id="warn-text">Please make sure you entered your name, your email and left a message.</span>
+              </div>
+              <div class="col-xs-12 bg-success">
+                <span class="material-icons">check_circle</span>
+                <span id="success-text">E-Mail sent successfully.</span>
+              </div>
+              <div id="sendButton" contenteditable="false">Send</div>
+            </div>
           </div>
+        </div>
       </article>
 
       <article id="emaildirect">

@@ -65,6 +65,20 @@
   float: right;
 }
 
+.fancyList a {
+  color: #fff;
+  font-size: inherit;
+  text-decoration: underline;
+}
+
+.fancyList a:hover, .fancyList.white a:hover {
+  color: #aaa;
+}
+
+.fancyList.white a {
+  color: #3d4451;
+}
+
 @media(max-width: 768px) {
   .fancyList>li {
     width: 100%;

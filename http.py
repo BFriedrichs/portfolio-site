@@ -2,8 +2,10 @@ import tornado.ioloop
 import tornado.web
 import tornado.autoreload
 import os
+import sys, getopt
 import smtplib
 import pdfkit
+import signal
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -59,11 +61,25 @@ handlers = [(r'/', MainHandler),
             #(r'/favicon.ico', tornado.web.StaticFileHandler, {'path': favicon_path}),
             ]
 
+def signal_handler(signum, frame):
+    tornado.ioloop.IOLoop.instance().stop()
+
 if __name__ == "__main__":
+    myopts, args = getopt.getopt(sys.argv[1:],"p:")
+
+    for arg, val in myopts:
+        if arg in ('-p', '--port'):
+            port = val
+
+    if not myopts:
+        port = 8000
+
+    print port
     app = tornado.web.Application(handlers, **settings)
     def fn():
         print "reloading..."
-    app.listen(8000)
+
+    app.listen(port)
     print "Server restarted.."
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()

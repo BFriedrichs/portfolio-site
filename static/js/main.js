@@ -1,3 +1,12 @@
+function resizeElements() {
+  $('.fancyList').each(function(i, e) {
+    var childs = $(e).find('.fadeIn');
+    $(e).find('.timeLine').css('height', $(e).height() - childs.last().outerHeight());
+  });
+}
+$(window).load(resizeElements);
+$(window).resize(resizeElements);
+
 $(document).ready(function() {
 
   var ms = new Date() - new Date("January 15, 1995 00:00:00");
@@ -26,16 +35,16 @@ $(document).ready(function() {
 
   var fields = {
     name: {
-      text: "Your name*",
-      elem: $('#formName'),
+      text: "Your name",
+      elem: $("label[for='formName']")
     },
     email: {
-      text: "Your email*",
-      elem: $('#formEmail')
+      text: "Your email",
+      elem: $("label[for='formEmail']")
     },
     msg: {
-      text: "Your message*",
-      elem: $('#formMsg')
+      text: "Your message",
+      elem: $("label[for='formMsg']")
     }
   };
 
@@ -49,7 +58,7 @@ $(document).ready(function() {
       for(var i in fields) {
         setTimeout(function(y) {
           anim[i] = setInterval(function(x) {
-            fields[x].elem.attr('placeholder', fields[x].elem.attr('placeholder') + fields[x].text.charAt(0));
+            fields[x].elem.html(fields[x].elem.html() + fields[x].text.charAt(0));
             fields[x].text = fields[x].text.substr(1);
             if(fields[x].text.length == 0) {
               clearInterval(anim[x]);
@@ -147,8 +156,8 @@ $(document).ready(function() {
         message = $('#formMsg').val();
 
     if(!sender || !email || !message) {
-      $('.bg-danger').css('height', '53px');
-      $('.bg-success').css('height', '0');
+      $('.bg-danger').css('max-height', '500px');
+      $('.bg-success').css('max-height', '0');
     }
 
     $.ajax({
@@ -161,18 +170,11 @@ $(document).ready(function() {
       }
     }).done(function(data) {
       if(data && data.ok) {
-        $('.bg-danger').css('height', '0');
-        $('.bg-success').css('height', '53px');
+        $('.bg-danger').css('max-height', '0');
+        $('.bg-success').css('max-height', '500px');
 
         $('#sendButton').css('border', '0').css('height', '0');
       }
     })
-  });
-});
-
-$(window).load(function() {
-  $('.fancyList').each(function(i, e) {
-    var childs = $(e).find('.fadeIn');
-    $(e).find('.timeLine').css('height', $(e).height() - childs.last().outerHeight());
   });
 });
