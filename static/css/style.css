@@ -592,6 +592,7 @@ article:last-child {
 
   #pictureMe {
     width: 30%;
+    top: 50%;
   }
 
   #pictureMe span {
