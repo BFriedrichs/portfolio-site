@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   var jwindow = $(window);
   var ignoreScrollActions = false;
-  var scrollSpeed = 0.02;
+  var scrollSpeed = 0.05;
 
   window.onscroll = function() {
     if(!ignoreScrollActions) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
       $('.caption').each(function(i, e) {
         var elmOffset = $(e).offset().top,
-            elBackgrounPos = "50% " + ((elmOffset - scrollTop) * scrollSpeed + 60) + "%";
+            elBackgrounPos = "50% " + ((elmOffset - scrollTop) * scrollSpeed + 80) + "%";
 
         e.style.backgroundPosition = elBackgrounPos;
       });
@@ -173,7 +173,7 @@ $(document).ready(function() {
         $('.bg-danger').css('max-height', '0');
         $('.bg-success').css('max-height', '500px');
 
-        $('#sendButton').css('border', '0').css('height', '0');
+        $('#sendButton').css('border', '0').css('display', 'none');
       }
     })
   });

@@ -65,7 +65,7 @@ body {
   width: 120%;
   height: inherit;
   background-size: cover;
-  background-position: bottom;
+
   transform: rotate(5deg);
   transform-origin: bottom right;
 }
@@ -104,23 +104,29 @@ body {
 }
 
 #pictureMe {
-  background-image: url('../img/self.jpg');
-  background-size: cover;
-
-  background-position: 50% 50%;
-
   position: absolute;
-  bottom: 0;
+  top: 40%;
   left: 50%;
-  margin-left: -10%;
+  transform: translateY(-50%) translateX(-50%);
   border-radius: 100%;
   width: 20%;
+  max-width: 300px;
+  border: 5px solid white;
 }
 
 #pictureMe:before{
 	content: "";
 	display: block;
 	padding-top: 100%;
+}
+
+#pictureMe span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: white;
+  font-size: 14vh;
+  transform: translateY(-50%) translateX(-50%);
 }
 
 article {
@@ -493,7 +499,7 @@ article:last-child {
   width: 120%;
   height: inherit;
   background-size: cover;
-  background-position: bottom;
+  background-position: 0 -650px;
   transform: rotate(-5deg);
   transform-origin: bottom right;
 }
@@ -585,8 +591,11 @@ article:last-child {
   }
 
   #pictureMe {
-    margin-left: -15%;
     width: 30%;
+  }
+
+  #pictureMe span {
+    font-size: 10vh;
   }
 
   .topNav li {
