@@ -7,12 +7,10 @@ import smtplib
 import pdfkit
 import signal
 
-minified = False
-
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
 
-        if minified:
+        if additional_settings['minified']:
             css = ['css/style.min.css']
             js = ['js/script.min.js']
         else:
@@ -79,13 +77,13 @@ def signal_handler(signum, frame):
     tornado.ioloop.IOLoop.instance().stop()
 
 if __name__ == "__main__":
-    myopts, args = getopt.getopt(sys.argv[1:], "p:m:", ['port=', 'minified'])
+    myopts, args = getopt.getopt(sys.argv[1:], "p:m", ['port=', 'minified'])
 
     for arg, val in myopts:
         if arg in ('-p', '--port'):
             additional_settings['port'] = val
         if arg in ('-m', '--minified'):
-            additional_settigns['minified'] = True
+            additional_settings['minified'] = True
 
     app = tornado.web.Application(handlers, **settings)
     def fn():
