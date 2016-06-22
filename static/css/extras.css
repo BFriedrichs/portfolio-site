@@ -95,7 +95,7 @@
 }
 
 @media(min-width: 769px) {
-  .fancyList .entryHeader::before {
+  .fancyList>li::after {
     z-index: 10;
     position: absolute;
     top: 20px;
@@ -104,6 +104,16 @@
     height: 20px;
     background: #3d4451;
     border-radius: 50%;
+  }
+
+  .fancyList>li:nth-child(odd)::after{
+    left: 125%;
+    margin-left: -9.5px;
+  }
+
+  .fancyList>li:nth-child(even)::after {
+    left: -25%;
+    margin-left: -9.5px;
   }
 
   .fancyList>li:nth-child(odd) .entryHeader::before {

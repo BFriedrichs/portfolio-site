@@ -7,9 +7,18 @@ import smtplib
 import pdfkit
 import signal
 
+minified = False
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html", title="My title")
+
+        if minified:
+            css = ['css/style.min.css']
+            js = ['js/script.min.js']
+        else:
+            css = ['css/style.css', 'css/material-icons.css', 'css/extras.css']
+            js = ['js/jquery-1.11.3.min.js', 'js/main.js', 'js/helper.js']
+        self.render("index.html", css=css, js=js)
 
 class MailHandler(tornado.web.RequestHandler):
     def post(self):
@@ -37,6 +46,7 @@ class MailHandler(tornado.web.RequestHandler):
 
             self.write({'ok': True})
 
+"""
 class PdfHandler(tornado.web.RequestHandler):
     def post(self):
         css = [
@@ -50,6 +60,7 @@ class PdfHandler(tornado.web.RequestHandler):
         self.set_header('Content-Type', 'application/pdf')
         self.set_header('Content-Disposition', 'attachment; filename="out.pdf"')
         self.write(b64decode(escape.url_unescape(self.request.body.split("=")[1])))
+"""
 
 settings = {'debug': True,
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
@@ -57,28 +68,30 @@ settings = {'debug': True,
 
 handlers = [(r'/', MainHandler),
             (r'/mail', MailHandler),
-            (r'/pdf', PdfHandler)
+            #(r'/pdf', PdfHandler)
             #(r'/favicon.ico', tornado.web.StaticFileHandler, {'path': favicon_path}),
             ]
+
+additional_settings = {'port': 8000,
+                      'minified': False}
 
 def signal_handler(signum, frame):
     tornado.ioloop.IOLoop.instance().stop()
 
 if __name__ == "__main__":
-    myopts, args = getopt.getopt(sys.argv[1:],"p:")
+    myopts, args = getopt.getopt(sys.argv[1:], "p:m:", ['port=', 'minified'])
 
     for arg, val in myopts:
         if arg in ('-p', '--port'):
-            port = val
-
-    if not myopts:
-        port = 8000
+            additional_settings['port'] = val
+        if arg in ('-m', '--minified'):
+            additional_settigns['minified'] = True
 
     app = tornado.web.Application(handlers, **settings)
     def fn():
         print "reloading..."
 
-    app.listen(port)
+    app.listen(additional_settings['port'])
     print "Server restarted.."
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()

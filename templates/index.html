@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ static_url('css/material-icons.css') }}" />
-    <link rel="stylesheet" href="{{ static_url('css/style.css') }}" />
-    <link rel="stylesheet" href="{{ static_url('css/extras.css') }}" />
+    {% for css_url in css %}
+      <link rel="stylesheet" href="{{ static_url(css_url) }}" />
+    {% end %}
+
     <title>Björn Friedrichs - Computer science student and developer</title>
     <script>
       function decodeEmail() {
@@ -59,6 +60,7 @@
           and currently employed as a front-end developer.
           Well-versed in numerous programming languages including JavaScript, SQL, and PHP.
         </div>
+        <!--
         <div id="downloadButton">
           <span>
             Download
@@ -67,6 +69,7 @@
             my resume
           </span>
         </div>
+        -->
       </article>
 
       <div class="caption">
@@ -174,7 +177,7 @@
           <div id="skillCircles">
             <div class="col-md-4 col-6 col-mobile-12 skillCircle">
               <div class="skillName">
-                  PHP
+                  Python
               </div>
               <div class="circle">
                   <svg><path id="circle1_bg" /><path id="circle1" /></svg>
@@ -185,7 +188,8 @@
                   JavaScript
               </div>
               <div class="circle">
-                  <svg><path id="circle2_bg" /><path id="circle2" /></svg>
+                  <svg>
+                    <path id="circle2_bg" /><path id="circle2" />
               </div>
             </div>
             <div class="col-md-4 col-6 col-mobile-12 skillCircle">
@@ -195,6 +199,9 @@
               <div class="circle">
                   <svg><path id="circle3_bg" /><path id="circle3" /></svg>
               </div>
+            </div>
+            <div class="col-12 skillMostUsed">
+              Having a look at my most frequently used skills and relative strength working with them.
             </div>
             <div class="col-md-4 col-6 col-mobile-12 skillCircle">
               <div class="skillName">
@@ -206,7 +213,7 @@
             </div>
             <div class="col-md-4 col-6 col-mobile-12 skillCircle">
               <div class="skillName">
-                  Python
+                  PHP
               </div>
               <div class="circle">
                   <svg><path id="circle5_bg" /><path id="circle5" /></svg>
@@ -293,8 +300,8 @@
       <div class="cr">©Björn Friedrichs 2015</div>
     </div>
 
-    <script src="{{ static_url('js/jquery-1.11.3.min.js') }}"></script>
-    <script src="{{ static_url('js/helper.js') }}"></script>
-    <script src="{{ static_url('js/main.js') }}"></script>
+    {% for js_url in js %}
+      <script type="text/javascript" src="{{ static_url(js_url) }}"></script>
+    {% end %}
   </body>
 </html>

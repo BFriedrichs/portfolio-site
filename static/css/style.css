@@ -60,7 +60,7 @@ body {
 }
 
 #headerImage {
-  background-image: url('../img/keyboard-compressed.jpg');
+  background-image: url('../img/keyboard.jpg');
   margin-left: -50px;
   width: 120%;
   height: inherit;
@@ -250,14 +250,14 @@ article:last-child {
 }
 
 .caption {
-  background-image: url('../img/photo-spacer-compressed.jpg');
+  margin: 50px 0;
+  background-image: url('../img/photo-spacer.jpg');
   width:100%;
   height: 300px;
   clear: both;
 
   background-size: cover;
   background-position: center;
-  transition:background-position .1s;
 }
 
 .caption::before {
@@ -322,6 +322,13 @@ article:last-child {
   font-size: 1em;
 }
 
+.skillMostUsed {
+  font-size: 1em;
+  font-weight: 100;
+  padding: 40px 10%;
+  text-align: center;
+}
+
 .circle {
   fill: none;;
   stroke: #646464;
@@ -335,10 +342,10 @@ article:last-child {
   font-weight: 100;
 }
 
-svg {
+.circle>svg {
   display: block;
-  margin: 0 auto 40px auto;
-  width: 160px;
+  margin: 0 auto;
+  width: 180px;
   height: 180px;
 }
 
@@ -359,7 +366,7 @@ svg {
 }
 
 #contact.caption {
-    background-image: url('../img/mail-compressed.jpg');
+    background-image: url('../img/mail.jpg');
 }
 
 .form {
@@ -482,7 +489,7 @@ svg {
 }
 
 #footerImage {
-  background-image: url('../img/keyboard-compressed.jpg');
+  background-image: url('../img/keyboard.jpg');
   width: 120%;
   height: inherit;
   background-size: cover;
