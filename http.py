@@ -6,6 +6,7 @@ import sys, getopt
 import smtplib
 import pdfkit
 import signal
+import yaml
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -20,29 +21,35 @@ class MainHandler(tornado.web.RequestHandler):
 
 class MailHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email')
-        name = self.get_argument('sender')
-        message = self.get_argument('message')
+        with open("config.yml", 'r') as ymlfile:
+            cfg = yaml.load(ymlfile)
 
-        if email and name and message:
+            email = self.get_argument('email')
+            name = self.get_argument('sender')
+            message = self.get_argument('message')
 
-            server.starttls()
+            if email and name and message:
+                __EMAIL = cfg['mail']['user']
 
-            msg = '\r\n'.join([
-                'From: My website',
-                'To: ' + __EMAIL,
-                'Subject: New Message from website',
-                '',
-                'Name: ' + name.encode('utf-8'),
-                'E-Mail: ' + email.encode('utf-8'),
-                '',
-                message.encode('utf-8')
-            ])
+                server = smtplib.SMTP(cfg['mail']['host'], 587)
+                server.starttls()
+                server.login(__EMAIL, cfg['mail']['pw'])
 
-            server.sendmail("mail@server.de", __EMAIL, msg)
-            server.quit()
+                msg = '\r\n'.join([
+                    'From: My website',
+                    'To: ' + __EMAIL,
+                    'Subject: New Message from website',
+                    '',
+                    'Name: ' + name.encode('utf-8'),
+                    'E-Mail: ' + email.encode('utf-8'),
+                    '',
+                    message.encode('utf-8')
+                ])
 
-            self.write({'ok': True})
+                server.sendmail("mail@server.de", __EMAIL, msg)
+                server.quit()
+
+                self.write({'ok': True})
 
 """
 class PdfHandler(tornado.web.RequestHandler):
@@ -60,7 +67,7 @@ class PdfHandler(tornado.web.RequestHandler):
         self.write(b64decode(escape.url_unescape(self.request.body.split("=")[1])))
 """
 
-settings = {'debug': True,
+settings = {'debug': False,
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'template_path': os.path.join(os.path.dirname(__file__), 'templates')}
 
@@ -84,6 +91,8 @@ if __name__ == "__main__":
             additional_settings['port'] = val
         if arg in ('-m', '--minified'):
             additional_settings['minified'] = True
+        if arg in ('-d', '--debug'):
+            settings['debug'] = True
 
     app = tornado.web.Application(handlers, **settings)
     def fn():
