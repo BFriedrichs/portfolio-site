@@ -1,5 +1,8 @@
-UgliPyJS==0.2.5
-pdfkit==0.5.0
-tornado==4.3
-PyYAML==3.12
 csscompressor==0.9.4
+pdfkit==0.5.0
+Pillow==3.2.0
+progress==1.2
+PyExecJS==1.4.0
+PyYAML==3.12
+tornado==4.3
+UgliPyJS==0.2.5

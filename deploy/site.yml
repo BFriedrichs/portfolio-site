@@ -27,6 +27,11 @@
   - name: copy config
     copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
 
+  - name: minify
+    command: python minify.py
+    args:
+      chdir: "{{ dest }}/{{ git_name }}"
+      
   - name: serve site
     raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
 
