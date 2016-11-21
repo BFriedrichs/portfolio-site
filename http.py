@@ -15,8 +15,8 @@ class MainHandler(tornado.web.RequestHandler):
             css = ['css/style.min.css']
             js = ['js/script.min.js']
         else:
-            css = ['css/style.css', 'css/material-icons.css', 'css/extras.css']
-            js = ['js/jquery-1.11.3.min.js', 'js/main.js', 'js/helper.js']
+            css = ["css/{}".format(file) for file in os.listdir("static/css")]
+            js = ["js/{}".format(file) for file in os.listdir("static/js")]
         self.render("index.html", css=css, js=js)
 
 class MailHandler(tornado.web.RequestHandler):

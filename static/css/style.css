@@ -103,6 +103,13 @@ body {
   width: 7px;
 }
 
+#logo {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
 #pictureMe {
   position: absolute;
   top: 40%;
