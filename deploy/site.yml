@@ -18,11 +18,19 @@
     git:  repo="git@github.com:BFriedrichs/{{ git_name }}.git"
           dest="{{ dest }}/{{ git_name }}"
           accept_hostkey=yes
+          force=yes
+
+  - name: deps
+    apt: name={{item}} state=installed
+    with_items:
+       - python-dev
+       - nodejs
+       - libjpeg-dev
+       - zlib1g-dev
+    sudo: True
 
   - name: install packages
-    command: pip install -r requirements.txt
-    args:
-      chdir: "{{ dest }}/{{ git_name }}"
+    pip: "requirements={{ dest }}/{{ git_name }}/requirements.txt"
 
   - name: copy config
     copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
@@ -31,7 +39,7 @@
     command: python minify.py
     args:
       chdir: "{{ dest }}/{{ git_name }}"
-      
+
   - name: serve site
     raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
 
