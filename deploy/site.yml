@@ -1,0 +1,31 @@
+-
+  hosts: all
+
+  vars:
+    http_port: 80
+    dest: ~/web
+    git_name: portfolio-site
+
+  remote_user: bjoern
+
+  tasks:
+  - name: make sure no process is running
+    raw: "sudo kill $(pgrep -f http.py)"
+    ignore_errors: True
+
+  - name: clone git
+    git:  repo="git@github.com:BFriedrichs/{{ git_name }}.git"
+          dest="{{ dest }}/{{ git_name }}"
+          accept_hostkey=yes
+
+  - name: install packages
+    command: pip install -r requirements.txt
+    args:
+      chdir: "{{ dest }}/{{ git_name }}"
+
+  - name: copy config
+    copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner=bjoern group=bjoern mode=0644"
+
+  - name: serve site
+    raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
+
