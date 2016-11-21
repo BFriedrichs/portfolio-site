@@ -84,7 +84,7 @@ def signal_handler(signum, frame):
     tornado.ioloop.IOLoop.instance().stop()
 
 if __name__ == "__main__":
-    myopts, args = getopt.getopt(sys.argv[1:], "p:m", ['port=', 'minified'])
+    myopts, args = getopt.getopt(sys.argv[1:], "p:md", ['port=', 'minified', 'debug'])
 
     for arg, val in myopts:
         if arg in ('-p', '--port'):
@@ -102,5 +102,11 @@ if __name__ == "__main__":
     print "Server restarted.."
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()
+
+    for dir, _, files in os.walk('static'):
+        [tornado.autoreload.watch(dir + '/' + f) for f in files if not f.startswith('.')]
+
+    for dir, _, files in os.walk('templates'):
+        [tornado.autoreload.watch(dir + '/' + f) for f in files if not f.startswith('.')]
 
     tornado.ioloop.IOLoop.current().start()
