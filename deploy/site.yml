@@ -5,8 +5,9 @@
     http_port: 80
     dest: ~/web
     git_name: portfolio-site
+    user: bjoern
 
-  remote_user: bjoern
+  remote_user: "{{ user }}"
 
   tasks:
   - name: make sure no process is running
@@ -24,7 +25,7 @@
       chdir: "{{ dest }}/{{ git_name }}"
 
   - name: copy config
-    copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner=bjoern group=bjoern mode=0644"
+    copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
 
   - name: serve site
     raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
