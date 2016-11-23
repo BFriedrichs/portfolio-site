@@ -1,42 +1,49 @@
-var options = {
-  transparent: true,
-  antialias: true
-}
+var Header = new function() {
+    this.container = document.getElementById('canvasHeaderContainer');
+    this.renderer = PIXI.autoDetectRenderer(1, 1, {
+      transparent: true,
+      antialias: true
+    });
 
-var renderer = PIXI.autoDetectRenderer(300, 300, options);
-var logo = document.getElementById('logo');
-logo.appendChild(renderer.view);
+    this.stage = new PIXI.Container;
+    this.graphicsContainer = new DRAWABLE.GraphicsObject;
 
-var stage = new PIXI.Container();
-var logo = new PIXI.Graphics();
-stage.addChild(logo);
+    this.init = function() {
+      this.container.appendChild(this.renderer.view);
+      this.stage.addChild(this.graphicsContainer);
+    };
 
-var Circle = function(x, y, radius, parent) {
-  this.x = x;
-  this.y = y;
-  this.radius = radius;
-  this.parent = parent;
-  this.color = 0xFFFFFF;
-  this.thickness = 5;
+    this.render = function() {
+      this.graphicsContainer.render();
+      this.renderer.render(this.stage);
+    };
 
-  this.graphics = new PIXI.Graphics();
-  this.parent.addChild(this.graphics);
+    this.resize = function(w, h) {
+      this.renderer.resize(w, h);
+    };
+}();
 
-  this.draw = function() {
-    this.graphics.clear();
-    this.graphics.lineStyle(this.thickness, this.color);
-    this.graphics.drawCircle(this.x, this.y, this.radius);
-    this.graphics.endFill();
-  };
+
+Header.init();
+
+var resize = function() {
+  if(Header.renderer) {
+      Header.resize(canvasHeaderContainer.clientWidth, canvasHeaderContainer.clientHeight);
+  }
 };
+window.onresize = resize;
 
-var circle = new Circle(150, 150, 125, logo);
+var logo_circle = new DRAWABLE.Circle();
+logo_circle.color = 0xFFFFFF;
+logo_circle.radius = 125;
+logo_circle.filled = true;
+Header.graphicsContainer.addChild(logo_circle);
 
 animate();
 function animate() {
     requestAnimationFrame(animate);
 
-    circle.draw();
-
-    renderer.render(stage);
+    Header.render();
 }
+
+resize();

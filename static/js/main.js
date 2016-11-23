@@ -1,3 +1,4 @@
+
 function resizeElements() {
   $('.fancyList').each(function(i, e) {
     var childs = $(e).find('.fadeIn');
