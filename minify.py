@@ -6,6 +6,7 @@ import os
 from progress.bar import Bar
 
 js_files = os.listdir('static/js')
+js_files[::-1]
 js_file = open('static/js/script.min.js', 'w')
 js_text = ''
 print len(js_files)
