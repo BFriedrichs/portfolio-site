@@ -1,13 +1,12 @@
-function resizeElements() {
-  $('.fancyList').each(function(i, e) {
-    var childs = $(e).find('.fadeIn');
-    $(e).find('.timeLine').css('height', $(e).height() - childs.last().outerHeight());
-  });
-}
-$(window).load(resizeElements);
-$(window).resize(resizeElements);
-
 $(document).ready(function() {
+  function resizeElements() {
+    $('.fancyList').each(function(i, e) {
+      var childs = $(e).find('.fadeIn');
+      $(e).find('.timeLine').css('height', $(e).height() - childs.last().outerHeight());
+    });
+  }
+  $(window).load(resizeElements);
+  $(window).resize(resizeElements);
 
   var ms = new Date() - new Date("January 15, 1995 00:00:00");
   $('#age').html(Math.floor(ms / 31536000000));
