@@ -10,7 +10,7 @@ var stage = new PIXI.Container();
 var graphicsContainer = new PIXI.Container();
 
 container.appendChild(renderer.view);
-stage.addChild(this.graphicsContainer);
+stage.addChild(graphicsContainer);
 
 
 var logo_circle_size = canvasHeaderContainer.clientHeight / 4;

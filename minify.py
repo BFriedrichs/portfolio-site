@@ -14,14 +14,7 @@ js_text = ''
 
 print 'Start script compression'
 print '========================\n'
-bar = Bar('Collecting script files', max=len(js_files) + len(libs) - 2)
-for file_name in js_files:
-    if file_name == 'script.min.js' or not os.path.isfile(os.path.join('static', 'js', file_name)):
-        continue
-    curr = open(os.path.join('static', 'js', file_name), 'r')
-    js_text += curr.read()
-    curr.close()
-    bar.next()
+bar = Bar('Collecting and compressing script files', max=len(js_files) + len(libs) - 2)
 
 for lib in libs:
     curr = open(os.path.join('static', 'js', 'lib', lib), 'r')
@@ -29,12 +22,19 @@ for lib in libs:
     curr.close()
     bar.next()
 
+for file_name in js_files:
+    if file_name == 'script.min.js' or not os.path.isfile(os.path.join('static', 'js', file_name)):
+        continue
+    curr = open(os.path.join('static', 'js', file_name), 'r')
+    curr_text = curr.read()
+    js_text += uglipyjs.compile(curr_text)
+    curr.close()
+    bar.next()
+
 bar.finish()
-print '=> Compressing script'
-js_text = uglipyjs.compile(js_text)
 print '=> Writing minified JS file'
 js_file.write(js_text)
-js_file.close
+js_file.close()
 
 print '\nStart CSS compression'
 print '=====================\n'
@@ -57,7 +57,7 @@ print '=> Writing minified CSS file'
 css_text = css_text.replace('/img/', '/img/compressed/')
 
 css_file.write(css_text)
-css_file.close
+css_file.close()
 
 
 print '\nStart Image compression'

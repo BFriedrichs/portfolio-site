@@ -87,11 +87,13 @@ def init():
     _CSS = []
 
     if additional_settings['minified']:
-        _CSS = ['{}/style.min.css'.format(css_path)]
-        _JS = ['{}/script.min.js'.format(js_path)]
+        _CSS = ['css/style.min.css']
+        _JS = ['js/script.min.js']
     else:
+
         css_path = os.path.join('static', 'css')
         js_path = os.path.join('static', 'js')
+
         libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js'];
 
         _CSS = [os.path.join('css', file) for file in os.listdir(css_path) if os.path.isfile(os.path.join(css_path,file)) and file.find('.min') == -1]
