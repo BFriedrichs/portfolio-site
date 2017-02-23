@@ -12,21 +12,18 @@ var graphicsContainer = new PIXI.Container();
 container.appendChild(renderer.view);
 stage.addChild(graphicsContainer);
 
-
 var logo_circle_size = canvasHeaderContainer.clientHeight / 4;
 var logo_circle = new PIXI.Graphics();
 var logo_circle_mask = new PIXI.Graphics();
 
-graphicsContainer.addChild(logo_circle_mask);
-
 graphicsContainer.addChild(logo_circle);
+graphicsContainer.addChild(logo_circle_mask);
 
 var logo_text = new PIXI.Text("BF", {fontFamily : 'Arial', fontSize: canvasHeaderContainer.clientHeight / 4, fill : 0xFFFFFF, align : 'left'});
 logo_circle.addChild(logo_text);
 
 var logo_extra = new PIXI.Graphics();
 logo_extra.mask = logo_circle_mask;
-
 logo_circle.addChild(logo_extra);
 
 var mask_padding = 100;
@@ -48,7 +45,6 @@ var bubble_max_size = canvasHeaderContainer.clientHeight / 8;
 for(var i = 0; i < bubble_max_count; i++) {
   bubbles.push(new Bubble());
 }
-
 
 function addExtras() {
   logo_extra.clear();
@@ -73,16 +69,10 @@ function addExtras() {
     logo_extra.drawCircle(bubble.x, bubble.y, bubble.size);
   }
 
-
   logo_extra.endFill();
 }
 
 function redrawLogo() {
-  logo_circle.clear();
-  logo_circle.lineStyle(5, 0xFFFFFF);
-  //logo_circle.drawCircle(0, 0, logo_circle_size);
-  logo_circle.endFill();
-
   logo_circle_mask.clear();
   logo_circle_mask.lineStyle(mask_padding, 0xFF0000);
   logo_circle_mask.drawCircle(0, 0, logo_circle_size + mask_padding / 2);
