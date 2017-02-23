@@ -5,7 +5,7 @@ import os
 
 from progress.bar import Bar
 
-libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js', 'pixi-drawable/pixi-drawable.min.js'];
+libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js'];
 
 js_files = os.listdir('static/js')
 js_files[::-1]
