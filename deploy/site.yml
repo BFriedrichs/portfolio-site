@@ -41,5 +41,5 @@
       chdir: "{{ dest }}/{{ git_name }}"
 
   - name: serve site
-    raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
+    raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -m -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
 

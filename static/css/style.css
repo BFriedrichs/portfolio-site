@@ -1,4 +1,4 @@
-@font-face {
+might @font-face {
   font-family: OpenSans;
   src: url('../font/OpenSans-Regular.ttf');
   font-weight: normal;
@@ -75,6 +75,8 @@ body {
   color: white;
   list-style-type: none;
   margin: 0;
+  position: relative;
+  z-index: 100;
 }
 
 .topNav li {
@@ -101,6 +103,12 @@ body {
 
 .topNav li:hover::before, .topNav li:hover::after {
   width: 7px;
+}
+
+#canvasHeaderContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #pictureMe {

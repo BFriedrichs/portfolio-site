@@ -7,17 +7,14 @@ import smtplib
 import pdfkit
 import signal
 import yaml
+from itertools import chain
+
+_CSS = []
+_JS = []
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-
-        if additional_settings['minified']:
-            css = ['css/style.min.css']
-            js = ['js/script.min.js']
-        else:
-            css = ['css/style.css', 'css/material-icons.css', 'css/extras.css']
-            js = ['js/jquery-1.11.3.min.js', 'js/main.js', 'js/helper.js']
-        self.render("index.html", css=css, js=js)
+        self.render("index.html", css=_CSS, js=_JS)
 
 class MailHandler(tornado.web.RequestHandler):
     def post(self):
@@ -83,8 +80,30 @@ additional_settings = {'port': 8000,
 def signal_handler(signum, frame):
     tornado.ioloop.IOLoop.instance().stop()
 
+def init():
+    global _CSS
+    global _JS
+    _JS = []
+    _CSS = []
+
+    if additional_settings['minified']:
+        _CSS = ['{}/style.min.css'.format(css_path)]
+        _JS = ['{}/script.min.js'.format(js_path)]
+    else:
+        css_path = os.path.join('static', 'css')
+        js_path = os.path.join('static', 'js')
+        libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js'];
+
+        _CSS = [os.path.join('css', file) for file in os.listdir(css_path) if os.path.isfile(os.path.join(css_path,file)) and file.find('.min') == -1]
+
+        # add libs
+        _JS += [os.path.join('js','lib', lib) for lib in libs];
+
+        # add scripts
+        _JS += ["js/{}".format(file) for file in os.listdir(js_path) if os.path.isfile(os.path.join(js_path,file)) and file.find('.min') == -1]
+
 if __name__ == "__main__":
-    myopts, args = getopt.getopt(sys.argv[1:], "p:m", ['port=', 'minified'])
+    myopts, args = getopt.getopt(sys.argv[1:], "p:md", ['port=', 'minified', 'debug'])
 
     for arg, val in myopts:
         if arg in ('-p', '--port'):
@@ -94,13 +113,21 @@ if __name__ == "__main__":
         if arg in ('-d', '--debug'):
             settings['debug'] = True
 
+    init()
     app = tornado.web.Application(handlers, **settings)
+
     def fn():
-        print "reloading..."
+        init()
 
     app.listen(additional_settings['port'])
     print "Server restarted.."
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()
+
+    for dir, _, files in os.walk('static'):
+        [tornado.autoreload.watch(dir + '/' + f) for f in files if not f.startswith('.')]
+
+    for dir, _, files in os.walk('templates'):
+        [tornado.autoreload.watch(dir + '/' + f) for f in files if not f.startswith('.')]
 
     tornado.ioloop.IOLoop.current().start()
