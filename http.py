@@ -92,7 +92,7 @@ def init():
     else:
         css_path = os.path.join('static', 'css')
         js_path = os.path.join('static', 'js')
-        libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js', 'pixi-drawable/pixi-drawable.min.js'];
+        libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js'];
 
         _CSS = [os.path.join('css', file) for file in os.listdir(css_path) if os.path.isfile(os.path.join(css_path,file)) and file.find('.min') == -1]
 
