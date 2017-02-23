@@ -43,7 +43,7 @@ var bubbles = [];
 var bubble_max_count = 25;
 
 var bubble_min_size = 10;
-var bubble_max_size = 50;
+var bubble_max_size = canvasHeaderContainer.clientHeight / 8;
 
 for(var i = 0; i < bubble_max_count; i++) {
   bubbles.push(new Bubble());
@@ -89,7 +89,7 @@ function redrawLogo() {
   logo_circle_mask.endFill();
 
   logo_circle_mask.x = logo_circle.x = canvasHeaderContainer.clientWidth / 2;
-  logo_circle_mask.y = logo_circle.y = canvasHeaderContainer.clientHeight / 2 - 30;
+  logo_circle_mask.y = logo_circle.y = canvasHeaderContainer.clientHeight / 2;
 
   logo_text.x = -logo_text.width / 2 + 5;
   logo_text.y = -logo_text.height / 2;
@@ -111,6 +111,7 @@ function animate() {
 resize();
 function resize() {
   logo_circle_size = canvasHeaderContainer.clientHeight / 4;
+  bubble_max_size = canvasHeaderContainer.clientHeight / 8;
   logo_text.style = {fontFamily : 'Arial', fontSize: canvasHeaderContainer.clientHeight / 4, fill : 0xFFFFFF, align : 'left'};
 
   if(renderer) {
