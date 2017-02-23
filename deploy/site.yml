@@ -10,16 +10,6 @@
   remote_user: "{{ user }}"
 
   tasks:
-  - name: make sure no process is running
-    raw: "sudo kill $(pgrep -f http.py)"
-    ignore_errors: True
-
-  - name: clone git
-    git:  repo="git@github.com:BFriedrichs/{{ git_name }}.git"
-          dest="{{ dest }}/{{ git_name }}"
-          accept_hostkey=yes
-          force=yes
-
   - name: deps
     apt: name={{item}} state=installed
     with_items:
@@ -34,12 +24,21 @@
 
   - name: copy config
     copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
+    
+  - name: clone git
+    git:  repo="git@github.com:BFriedrichs/{{ git_name }}.git"
+          dest="{{ dest }}/{{ git_name }}"
+          accept_hostkey=yes
+          force=yes
 
   - name: minify
     command: python minify.py
     args:
       chdir: "{{ dest }}/{{ git_name }}"
 
+  - name: make sure no process is running
+    raw: "sudo kill $(pgrep -f http.py)"
+    ignore_errors: True
+
   - name: serve site
     raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -m -p 80 < /dev/null >/dev/null 2>&1 & sleep 1"
-
