@@ -59,14 +59,13 @@ body {
 }
 
 #headerImage {
-  background-image: url('../img/keyboard.jpg');
-  margin-left: -50px;
-  width: 120%;
+  background-image: url(../img/me_fixed.png);
+  background-position: 100% 100%;
   height: inherit;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 
-  /* transform: rotate(5deg); */
-  transform-origin: bottom right;
+  background-color: #e0e5e8;
 }
 
 .topNav {
