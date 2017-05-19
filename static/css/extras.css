@@ -35,14 +35,14 @@
 
 .fancyList>li>.entryHeader>p:nth-child(1) {
   font-weight: bold;
-  font-size: 0.5em;
+  font-size: 0.7em;
   margin: 0;
 }
 
 .fancyList>li>.entryHeader>p:nth-child(2) {
   margin: 0;
   font-weight: 100;
-  font-size: 0.5em;
+  font-size: 0.7em;
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
 }
@@ -54,7 +54,7 @@
 .fancyList>li>.entryContent {
   padding-top: 10px;
   font-weight: 100;
-  font-size: 0.5em;
+  font-size: 0.7em;
 }
 
 .fancyList>li:nth-child(odd) {

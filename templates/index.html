@@ -31,45 +31,47 @@
     </div>
     <div id="content">
       <article id="about" class="col-offset-mobile-1 col-mobile-10 col-offset-2 col-8">
-        <div class="welcomeBanner">WELCOME</div>
-        <div class="intro">
-          <span class="light">I'm</span> <span class="bold">Björn Friedrichs</span>
-          <p class="light">
-            Computer science student and developer
-          </p>
+        <div class="section">
+          <div class="welcomeBanner">WELCOME</div>
+          <div class="intro">
+            <span class="light">I'm</span> <span class="bold">Björn Friedrichs</span>
+            <p class="light">
+              Computer science student and developer
+            </p>
+          </div>
+          <div class="spacer"></div>
+          <div id="infoList">
+            <ul>
+              <li>
+                <span class="col-mobile-12 col-4 list-head">AGE</span><span id="age" class="col-mobile-12 col-8">20</span>
+              </li>
+              <li>
+                <span class="col-mobile-12 col-4 list-head">LOCATION</span><span class="col-mobile-12 col-8">Germany, NRW</span>
+              </li>
+              <li>
+                <span class="col-mobile-12 col-4 list-head">E-MAIL</span><span class="col-mobile-12 col-8"><script>decodeEmail()</script></span>
+              </li>
+              <li>
+                <span class="col-mobile-12 col-4 list-head">PHONE</span><span class="col-mobile-12 col-8">On request</span>
+              </li>
+            </ul>
+          </div>
+          <div class="welcomeText">
+            I'm Björn Friedrichs, computer science student at the University of Duisburg-Essen
+            and currently employed as a front-end developer.
+            Well-versed in most current programming languages and software modeling concepts.
+          </div>
+          <!--
+          <div id="downloadButton">
+            <span>
+              Download
+            </span>
+            <span>
+              my resume
+            </span>
+          </div>
+          -->
         </div>
-        <div class="spacer"></div>
-        <div id="infoList">
-          <ul>
-            <li>
-              <span class="col-mobile-12 col-4 list-head">AGE</span><span id="age" class="col-mobile-12 col-8">20</span>
-            </li>
-            <li>
-              <span class="col-mobile-12 col-4 list-head">LOCATION</span><span class="col-mobile-12 col-8">Germany, NRW</span>
-            </li>
-            <li>
-              <span class="col-mobile-12 col-4 list-head">E-MAIL</span><span class="col-mobile-12 col-8"><script>decodeEmail()</script></span>
-            </li>
-            <li>
-              <span class="col-mobile-12 col-4 list-head">PHONE</span><span class="col-mobile-12 col-8">On request</span>
-            </li>
-          </ul>
-        </div>
-        <div class="welcomeText">
-          I'm Björn Friedrichs, computer science student at the University of Duisburg-Essen
-          and currently employed as a front-end developer.
-          Well-versed in numerous programming languages including JavaScript, SQL, and PHP.
-        </div>
-        <!--
-        <div id="downloadButton">
-          <span>
-            Download
-          </span>
-          <span>
-            my resume
-          </span>
-        </div>
-        -->
       </article>
 
       <div class="caption">
@@ -175,6 +177,10 @@
             Everyone has their own style, but a look left and right - be it only to evaluate or discuss - never hurts.
           </div>
           <div id="skillCircles">
+            <div class="col-12 skillMostUsed">
+              I dislike having a scale of skill on a portfolio so these are my most liked.
+              (Disclaimer: Skill might correlate.)
+            </div>
             <div class="col-md-4 col-6 col-mobile-12 skillCircle">
               <div class="skillName">
                   Python
@@ -199,9 +205,6 @@
               <div class="circle">
                   <svg><path id="circle3_bg" /><path id="circle3" /></svg>
               </div>
-            </div>
-            <div class="col-12 skillMostUsed">
-              Having a look at my most frequently used skills and relative strength working with them.
             </div>
             <div class="col-md-4 col-6 col-mobile-12 skillCircle">
               <div class="skillName">
@@ -258,7 +261,7 @@
               <label for="formEmail"></label>
               <input id="formEmail" type="text" placeholder="*">
             </div>
-            <div class="col-12 inputWithLabel">
+            <div class="col-12 inputWithLabel area">
               <label for="formMsg"></label>
               <textarea id="formMsg" class="textarea" contenteditable="true" placeholder="*"></textarea>
             </div>

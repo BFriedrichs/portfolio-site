@@ -96,13 +96,13 @@ def init():
 
         libs = ['jquery/jquery-1.11.3.min.js', 'pixi/pixi.min.js'];
 
-        _CSS = [os.path.join('css', file) for file in os.listdir(css_path) if os.path.isfile(os.path.join(css_path,file)) and file.find('.min') == -1]
+        _CSS = [os.path.join('css', file) for file in os.listdir(css_path) if os.path.isfile(os.path.join(css_path,file)) and file.endswith('.css') and file.find('.min') == -1]
 
         # add libs
         _JS += [os.path.join('js','lib', lib) for lib in libs];
 
         # add scripts
-        _JS += ["js/{}".format(file) for file in os.listdir(js_path) if os.path.isfile(os.path.join(js_path,file)) and file.find('.min') == -1]
+        _JS += ["js/{}".format(file) for file in os.listdir(js_path) if os.path.isfile(os.path.join(js_path,file)) and file.endswith('.js') and file.find('.min') == -1]
 
 if __name__ == "__main__":
     myopts, args = getopt.getopt(sys.argv[1:], "p:md", ['port=', 'minified', 'debug'])

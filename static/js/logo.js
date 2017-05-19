@@ -19,14 +19,22 @@ var logo_circle_mask = new PIXI.Graphics();
 graphicsContainer.addChild(logo_circle);
 graphicsContainer.addChild(logo_circle_mask);
 
-var logo_text = new PIXI.Text("BF", {fontFamily : 'Arial', fontSize: canvasHeaderContainer.clientHeight / 4, fill : 0xFFFFFF, align : 'left'});
+var logo_outline = new PIXI.Graphics();
+logo_outline.lineStyle(4, 0xFFFFFF);
+logo_outline.beginFill(0x000000, 0.3);
+logo_outline.drawCircle(0, 0, logo_circle_size);
+logo_circle.addChild(logo_outline);
+
+var logo_text = new PIXI.Text("BF", {fontFamily : 'Arial', fontSize: canvasHeaderContainer.clientHeight / 4, fill : 0xFFFFFF, align : 'center'});
 logo_circle.addChild(logo_text);
 
+logo_circle.mask = logo_circle_mask;
+
 var logo_extra = new PIXI.Graphics();
-logo_extra.mask = logo_circle_mask;
+logo_extra.mask = logo_text;
 logo_circle.addChild(logo_extra);
 
-var mask_padding = 100;
+var mask_padding = 10;
 
 var Bubble = function() {
   this.init = false;
@@ -34,7 +42,7 @@ var Bubble = function() {
   this.y = 0;
   this.size = 0;
   this.max_size = 0;
-  this.iterations_left = 5;
+  this.iterations_left = 1;
 };
 
 var bubbles = [];
@@ -62,11 +70,11 @@ function addExtras() {
 
     if(bubble.init && bubble.size < bubble.max_size - 5) {
       var curr = bubble.size / bubble.max_size;
-      bubble.size += (bubble.max_size * ease(curr) - bubble.size) / 25;
+      bubble.size += (bubble.max_size * ease(curr) - bubble.size) / 40;
     } else {
       if(bubble.iterations_left > 0) {
         var at = Math.random() * 2;
-        var radius = Math.min(0.5 + Math.random(), 1) * logo_circle_size;
+        var radius = Math.min(Math.random(), 1) * logo_circle_size;
         bubble.x = radius * Math.cos(at * Math.PI);
         bubble.y = radius * Math.sin(at * Math.PI);
         bubble.size = bubble_min_size;
@@ -85,7 +93,7 @@ function addExtras() {
 
 function redrawLogo() {
   logo_circle_mask.clear();
-  logo_circle_mask.lineStyle(mask_padding, 0xFF0000);
+  logo_circle_mask.beginFill(0xFF0000);
   logo_circle_mask.drawCircle(0, 0, logo_circle_size + mask_padding / 2);
   logo_circle_mask.endFill();
 

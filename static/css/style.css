@@ -38,7 +38,6 @@ body {
 
 * {
   font-family: OpenSans;
-  font-size: 1.2em;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -66,7 +65,7 @@ body {
   height: inherit;
   background-size: cover;
 
-  transform: rotate(5deg);
+  /* transform: rotate(5deg); */
   transform-origin: bottom right;
 }
 
@@ -83,7 +82,7 @@ body {
   float: left;
   margin: 10px 30px;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.4em;
   transition: all .3s;
   cursor: pointer;
 }
@@ -149,7 +148,8 @@ article:last-child {
 }
 
 #content {
-    color: #3d4451;
+  font-size: 1.8em;
+  color: #3d4451;
 }
 
 .welcomeBanner {
@@ -192,7 +192,6 @@ article:last-child {
 
 #infoList {
   margin: 50px 0;
-  font-size: 0.6em;
 }
 
 #infoList>ul {
@@ -204,6 +203,15 @@ article:last-child {
   display: inline-block;
   width: 100%;
 }
+
+#infoList>ul>li:first-child {
+  margin: 0 0 20px 0;
+}
+
+#infoList>ul>li:last-child {
+  margin: 20px 0 0 0;
+}
+
 
 #infoList .list-head {
   font-weight: bold;
@@ -227,8 +235,7 @@ article:last-child {
 
 
 .welcomeText {
-  font-size: 1.2em;
-  margin-top: 100px;
+  margin: 75px 0;
   text-align: center;
   padding: 0 10%;
 
@@ -331,7 +338,7 @@ article:last-child {
 }
 
 .skillText {
-  margin: 75px 0;
+  margin: 50px 0;
   font-weight: 100;
   font-size: 1em;
 }
@@ -339,8 +346,7 @@ article:last-child {
 .skillMostUsed {
   font-size: 1em;
   font-weight: 100;
-  padding: 40px 10%;
-  text-align: center;
+  margin-bottom: 40px;
 }
 
 .circle {
@@ -407,7 +413,7 @@ article:last-child {
 
 .form .inputWithLabel label {
   font-weight: lighter;
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 .form .inputWithLabel label::after {
@@ -421,6 +427,10 @@ article:last-child {
   font-size: 0.6em;
   padding: 10px 15px;
   border: 1px solid #cccccc;
+}
+
+.form .area {
+  margin: 25px 0;
 }
 
 #sendButton {
@@ -491,8 +501,8 @@ article:last-child {
 #footer {
   position: relative;
   width: 100%;
-  height: 50vh;
-  margin-top: -50vh;
+  height: 35vh;
+  margin-top: -35vh;
 }
 
 #footerImageContainer {
@@ -504,17 +514,16 @@ article:last-child {
 
 #footerImage {
   background-image: url('../img/keyboard.jpg');
-  width: 120%;
   height: inherit;
   background-size: cover;
-  background-position: 0 -650px;
-  transform: rotate(-5deg);
+  background-position: 0 -550px;
+  /* transform: rotate(-5deg); */
   transform-origin: bottom right;
 }
 
 #backTop {
   position: relative;
-  top: 60%;
+  top: 50%;
   font-weight: bold;
   text-align: center;
   color: #fff;
@@ -609,7 +618,6 @@ article:last-child {
 
   .topNav li {
     margin: 10px 8px;
-    font-size: 0.8em;
   }
 
   .sectionHeader {
