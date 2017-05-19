@@ -599,7 +599,7 @@ article:last-child {
   }
 
   .col-mobile-12 {
-    width: 100%;
+    width: 100% !important;
   }
 
   #header {
