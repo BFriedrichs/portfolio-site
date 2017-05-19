@@ -20,5 +20,5 @@ website
 
 ### deployment
 
+* ssh-add
 * ansible-playbook site.yml -i hosts
-

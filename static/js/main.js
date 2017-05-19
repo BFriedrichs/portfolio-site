@@ -56,7 +56,7 @@ $(document).ready(function() {
       var cnt = 0;
       for(var i in fields) {
         setTimeout(function(y) {
-          anim[i] = setInterval(function(x) {
+          anim[y] = setInterval(function(x) {
             fields[x].elem.html(fields[x].elem.html() + fields[x].text.charAt(0));
             fields[x].text = fields[x].text.substr(1);
             if(fields[x].text.length == 0) {
