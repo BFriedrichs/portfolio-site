@@ -20,12 +20,17 @@ graphicsContainer.addChild(logo_circle);
 graphicsContainer.addChild(logo_circle_mask);
 
 var logo_outline = new PIXI.Graphics();
-logo_outline.lineStyle(4, 0xFFFFFF);
-logo_outline.beginFill(0x000000, 0.3);
-logo_outline.drawCircle(0, 0, logo_circle_size);
 logo_circle.addChild(logo_outline);
 
-var logo_text = new PIXI.Text("BF", {fontFamily : 'Arial', fontSize: canvasHeaderContainer.clientHeight / 4, fill : 0xFFFFFF, align : 'center'});
+function logoTextFactory() {
+  return new PIXI.Text("BF", {fontFamily : 'OpenSans',
+                              fontSize: canvasHeaderContainer.clientHeight / 4,
+                              fontWeight: 'bold',
+                              fill : 0xFFFFFF,
+                              align : 'left'});
+}
+
+var logo_text = logoTextFactory();
 logo_circle.addChild(logo_text);
 
 logo_circle.mask = logo_circle_mask;
@@ -33,8 +38,6 @@ logo_circle.mask = logo_circle_mask;
 var logo_extra = new PIXI.Graphics();
 logo_extra.mask = logo_text;
 logo_circle.addChild(logo_extra);
-
-var mask_padding = 10;
 
 var Bubble = function() {
   this.init = false;
@@ -91,17 +94,31 @@ function addExtras() {
   logo_extra.endFill();
 }
 
+var didResize = false;
+
 function redrawLogo() {
-  logo_circle_mask.clear();
-  logo_circle_mask.beginFill(0xFF0000);
-  logo_circle_mask.drawCircle(0, 0, logo_circle_size + mask_padding / 2);
-  logo_circle_mask.endFill();
+  if(didResize) {
+    logo_outline.clear();
+    logo_outline.lineStyle(4, 0xFFFFFF);
+    logo_outline.beginFill(0x000000, 0.3);
+    logo_outline.drawCircle(0, 0, logo_circle_size);
+    logo_outline.endFill();
+    logo_outline.lineStyle(1, 0xFFFFFF);
+    logo_outline.drawCircle(0, 0, logo_circle_size - 10);
 
-  logo_circle_mask.x = logo_circle.x = canvasHeaderContainer.clientWidth / 2;
-  logo_circle_mask.y = logo_circle.y = canvasHeaderContainer.clientHeight / 2;
+    logo_circle_mask.clear();
+    logo_circle_mask.beginFill(0xFF0000);
+    logo_circle_mask.drawCircle(0, 0, logo_circle_size);
+    logo_circle_mask.endFill();
 
-  logo_text.x = -logo_text.width / 2 + 5;
-  logo_text.y = -logo_text.height / 2;
+    logo_circle_mask.x = logo_circle.x = canvasHeaderContainer.clientWidth / 2;
+    logo_circle_mask.y = logo_circle.y = canvasHeaderContainer.clientHeight / 2;
+
+    logo_text.x = -logo_text.width / 2;
+    logo_text.y = -logo_text.height / 2 + 5;
+
+    didResize = false;
+  }
 
   addExtras();
 }
@@ -119,12 +136,17 @@ function animate() {
 
 resize();
 function resize() {
-  logo_circle_size = canvasHeaderContainer.clientHeight / 4;
-  bubble_max_size = canvasHeaderContainer.clientHeight / 8;
-  logo_text.style = {fontFamily : 'Arial', fontSize: canvasHeaderContainer.clientHeight / 4, fill : 0xFFFFFF, align : 'left'};
-
   if(renderer) {
     renderer.resize(canvasHeaderContainer.clientWidth, canvasHeaderContainer.clientHeight);
   }
+
+  logo_circle_size = canvasHeaderContainer.clientHeight / 4;
+  bubble_max_size = canvasHeaderContainer.clientHeight / 8;
+
+  logo_circle.removeChild(logo_text);
+  logo_text = logoTextFactory();
+  logo_extra.mask = logo_text;
+  logo_circle.addChild(logo_text);
+  didResize = true;
 }
 window.onresize = resize;
