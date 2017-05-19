@@ -1,152 +1,152 @@
-
-var container = document.getElementById('canvasHeaderContainer');
+var PIXI = PIXI || window.PIXI
+var canvasHeaderContainer = canvasHeaderContainer || document.getElementById('canvasHeaderContainer')
 
 var renderer = PIXI.autoDetectRenderer(1, 1, {
   transparent: true,
   antialias: true
-});
+})
 
-var stage = new PIXI.Container();
-var graphicsContainer = new PIXI.Container();
+var stage = new PIXI.Container()
+var graphicsContainer = new PIXI.Container()
 
-container.appendChild(renderer.view);
-stage.addChild(graphicsContainer);
+canvasHeaderContainer.appendChild(renderer.view)
+stage.addChild(graphicsContainer)
 
-var logo_circle_size = canvasHeaderContainer.clientHeight / 4;
-var logo_circle = new PIXI.Graphics();
-var logo_circle_mask = new PIXI.Graphics();
+var logoCircleSize = canvasHeaderContainer.clientHeight / 4
+var logoCircle = new PIXI.Graphics()
+var logoCircleMask = new PIXI.Graphics()
 
-graphicsContainer.addChild(logo_circle);
-graphicsContainer.addChild(logo_circle_mask);
+graphicsContainer.addChild(logoCircle)
+graphicsContainer.addChild(logoCircleMask)
 
-var logo_outline = new PIXI.Graphics();
-logo_circle.addChild(logo_outline);
+var logoOutline = new PIXI.Graphics()
+logoCircle.addChild(logoOutline)
 
-function logoTextFactory() {
-  return new PIXI.Text("BF", {fontFamily : 'OpenSans',
-                              fontSize: canvasHeaderContainer.clientHeight / 4,
-                              fontWeight: 'bold',
-                              fill : 0xFFFFFF,
-                              align : 'left'});
+function logoTextFactory () {
+  return new PIXI.Text('BF', {fontFamily: 'OpenSans',
+    fontSize: canvasHeaderContainer.clientHeight / 4,
+    fontWeight: 'bold',
+    fill: 0xFFFFFF,
+    align: 'left'})
 }
 
-var logo_text = logoTextFactory();
-logo_circle.addChild(logo_text);
+var logoText = logoTextFactory()
+logoCircle.addChild(logoText)
 
-logo_circle.mask = logo_circle_mask;
+logoCircle.mask = logoCircleMask
 
-var logo_extra = new PIXI.Graphics();
-logo_extra.mask = logo_text;
-logo_circle.addChild(logo_extra);
+var logoExtra = new PIXI.Graphics()
+logoExtra.mask = logoText
+logoCircle.addChild(logoExtra)
 
-var Bubble = function() {
-  this.init = false;
-  this.x = 0;
-  this.y = 0;
-  this.size = 0;
-  this.max_size = 0;
-  this.iterations_left = 1;
-};
+var Bubble = function () {
+  this.init = false
+  this.x = 0
+  this.y = 0
+  this.size = 0
+  this.max_size = 0
+  this.iterations_left = 1
+}
 
-var bubbles = [];
-var bubble_max_count = 35;
+var bubbles = []
+var logoMaxCount = 35
 
-var bubble_min_size = 1;
-var bubble_max_size = canvasHeaderContainer.clientHeight / 8;
+var logoMinSize = 1
+var logoMaxSize = canvasHeaderContainer.clientHeight
 
-var interval = setInterval(function() {
-  bubbles.push(new Bubble());
-  if(bubbles.length >= bubble_max_count) {
-    clearInterval(interval);
+var interval = setInterval(function () {
+  bubbles.push(new Bubble())
+  if (bubbles.length >= logoMaxCount) {
+    clearInterval(interval)
   }
-}, 100);
+}, 100)
 
 // https://gist.github.com/gre/1650294
-function ease(t) { return 1+(--t)*t*t*t*t; }
+function ease (t) { return 1 + (--t) * t * t * t * t }
 
-function addExtras() {
-  logo_extra.clear();
-  logo_extra.beginFill(0xFFFFFF);
+function addExtras () {
+  logoExtra.clear()
+  logoExtra.beginFill(0xFFFFFF)
 
-  for(var i in bubbles) {
-    var bubble = bubbles[i];
+  for (var i in bubbles) {
+    var bubble = bubbles[i]
 
-    if(bubble.init && bubble.size < bubble.max_size - 5) {
-      var curr = bubble.size / bubble.max_size;
-      bubble.size += (bubble.max_size * ease(curr) - bubble.size) / 40;
+    if (bubble.init && bubble.size < bubble.max_size) {
+      var curr = bubble.size / bubble.max_size
+      bubble.size += (bubble.max_size * ease(curr) - bubble.size) / 40
     } else {
-      if(bubble.iterations_left > 0) {
-        var at = Math.random() * 2;
-        var radius = Math.min(Math.random(), 1) * logo_circle_size;
-        bubble.x = radius * Math.cos(at * Math.PI);
-        bubble.y = radius * Math.sin(at * Math.PI);
-        bubble.size = bubble_min_size;
-        bubble.max_size = (bubble_max_size / bubble.iterations_left) * Math.min(0.5 + Math.random(), 1);
-        bubble.iterations_left -= 1;
+      if (bubble.iterations_left > 0) {
+        var at = Math.random() * 2
+        var radius = Math.min(Math.random(), 0.8) * logoCircleSize
+        bubble.x = radius * Math.cos(at * Math.PI)
+        bubble.y = radius * Math.sin(at * Math.PI)
+        bubble.size = logoMinSize
+        bubble.max_size = (logoMaxSize / bubble.iterations_left) * Math.min(0.5 + Math.random(), 1)
+        bubble.iterations_left -= 1
 
-        bubble.init = true;
+        bubble.init = true
       }
     }
 
-    logo_extra.drawCircle(bubble.x, bubble.y, bubble.size);
+    logoExtra.drawCircle(bubble.x, bubble.y, bubble.size)
   }
 
-  logo_extra.endFill();
+  logoExtra.endFill()
 }
 
-var didResize = false;
+var didResize = false
 
-function redrawLogo() {
-  if(didResize) {
-    logo_outline.clear();
-    logo_outline.lineStyle(4, 0xFFFFFF);
-    logo_outline.beginFill(0x000000, 0.3);
-    logo_outline.drawCircle(0, 0, logo_circle_size);
-    logo_outline.endFill();
-    logo_outline.lineStyle(1, 0xFFFFFF);
-    logo_outline.drawCircle(0, 0, logo_circle_size - 10);
+function redrawLogo () {
+  if (didResize) {
+    logoOutline.clear()
+    logoOutline.lineStyle(4, 0xFFFFFF)
+    logoOutline.beginFill(0x000000, 0.3)
+    logoOutline.drawCircle(0, 0, logoCircleSize)
+    logoOutline.endFill()
+    logoOutline.lineStyle(1, 0xFFFFFF)
+    logoOutline.drawCircle(0, 0, logoCircleSize - 10)
 
-    logo_circle_mask.clear();
-    logo_circle_mask.beginFill(0xFF0000);
-    logo_circle_mask.drawCircle(0, 0, logo_circle_size);
-    logo_circle_mask.endFill();
+    logoCircleMask.clear()
+    logoCircleMask.beginFill(0xFF0000)
+    logoCircleMask.drawCircle(0, 0, logoCircleSize)
+    logoCircleMask.endFill()
 
-    logo_circle_mask.x = logo_circle.x = canvasHeaderContainer.clientWidth / 2;
-    logo_circle_mask.y = logo_circle.y = canvasHeaderContainer.clientHeight / 2;
+    logoCircleMask.x = logoCircle.x = canvasHeaderContainer.clientWidth / 2
+    logoCircleMask.y = logoCircle.y = canvasHeaderContainer.clientHeight / 2
 
-    logo_text.x = -logo_text.width / 2;
-    logo_text.y = -logo_text.height / 2 + 5;
+    logoText.x = -logoText.width / 2
+    logoText.y = -logoText.height / 2 + 5
 
-    didResize = false;
+    didResize = false
   }
 
-  addExtras();
+  addExtras()
 }
 
-animate();
-function animate() {
-  setTimeout(function() {
-    requestAnimationFrame(animate);
+animate()
+function animate () {
+  setTimeout(function () {
+    window.requestAnimationFrame(animate)
 
-    redrawLogo();
+    redrawLogo()
 
-    renderer.render(stage);
-  }, 1000 / 140);
+    renderer.render(stage)
+  }, 1000 / 140)
 }
 
-resize();
-function resize() {
-  if(renderer) {
-    renderer.resize(canvasHeaderContainer.clientWidth, canvasHeaderContainer.clientHeight);
+resize()
+function resize () {
+  if (renderer) {
+    renderer.resize(canvasHeaderContainer.clientWidth, canvasHeaderContainer.clientHeight)
   }
 
-  logo_circle_size = canvasHeaderContainer.clientHeight / 4;
-  bubble_max_size = canvasHeaderContainer.clientHeight / 8;
+  logoCircleSize = canvasHeaderContainer.clientHeight / 4
+  logoMaxSize = canvasHeaderContainer.clientHeight / 8
 
-  logo_circle.removeChild(logo_text);
-  logo_text = logoTextFactory();
-  logo_extra.mask = logo_text;
-  logo_circle.addChild(logo_text);
-  didResize = true;
+  logoCircle.removeChild(logoText)
+  logoText = logoTextFactory()
+  logoExtra.mask = logoText
+  logoCircle.addChild(logoText)
+  didResize = true
 }
-window.onresize = resize;
+window.onresize = resize

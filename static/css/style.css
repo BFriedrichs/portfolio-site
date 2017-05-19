@@ -357,6 +357,7 @@ article:last-child {
 }
 
 .skillName {
+  width: 95%;
   text-align: center;
   font-weight: 100;
 }
