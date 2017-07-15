@@ -11,10 +11,11 @@ from itertools import chain
 
 _CSS = []
 _JS = []
+_IMAGES = {}
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html", css=_CSS, js=_JS)
+        self.render("index.html", css=_CSS, js=_JS, images=_IMAGES)
 
 class MailHandler(tornado.web.RequestHandler):
     def post(self):
@@ -84,14 +85,23 @@ def signal_handler(signum, frame):
 def init():
     global _CSS
     global _JS
+    global _IMAGES
     _JS = []
     _CSS = []
+    _IMAGES = {}
+
+    image_keywords = ['keyboard', 'mail', 'resume', 'me_fixed']
+    image_path = os.path.join('static', 'img', 'compressed')
+
+    for file in os.listdir(image_path):
+        for keyword in image_keywords:
+            if file.split('.')[0] == keyword:
+                _IMAGES[keyword] =  os.path.join('img', 'compressed', file)
 
     if additional_settings['minified']:
         _CSS = ['css/style.min.css']
         _JS = ['js/script.min.js']
     else:
-
         css_path = os.path.join('static', 'css')
         js_path = os.path.join('static', 'js')
 

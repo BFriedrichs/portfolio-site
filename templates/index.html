@@ -20,7 +20,7 @@
     <div id="header">
       <div id="canvasHeaderContainer"></div>
       <div id="headerImageContainer">
-        <div id="headerImage"></div>
+        <img id="headerImage" src="{{ static_url(images['me_fixed']) }}"></img>
       </div>
       <ul class="topNav">
         <li id="toAbout">ABOUT</li>
@@ -74,7 +74,7 @@
         </div>
       </article>
 
-      <div class="caption">
+      <div class="caption" style="background-image: url({{ static_url(images['resume']) }})">
         <div class="col-offset-mobile-1 col-mobile-10 col-offset-2 col-8">
             <div>
               Resume
@@ -233,7 +233,7 @@
         </div>
       </article>
 
-      <div id="contact" class="caption">
+      <div id="contact" class="caption" style="background-image: url({{ static_url(images['mail']) }})">
         <div class="col-offset-mobile-1 col-mobile-10 col-offset-2 col-8">
             <div>
               Contact
@@ -296,7 +296,7 @@
     </div>
     <div id="footer">
       <div id="footerImageContainer">
-        <div id="footerImage"></div>
+        <div id="footerImage" style="background-image: url({{ static_url(images['keyboard']) }})"></div>
       </div>
       <div id="backTop">BACK UP</div>
       <div class="cr">©Björn Friedrichs 2015</div>
