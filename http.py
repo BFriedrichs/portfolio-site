@@ -13,7 +13,6 @@ from itertools import chain
 _CSS = []
 _JS = []
 _IMAGES = {}
-USE_SSL = False
 
 class MainHandler(tornado.web.RequestHandler):
     def prepare(self):
@@ -126,7 +125,7 @@ def init():
 
 if __name__ == "__main__":
     global USE_SSL
-
+    USE_SSL = False
     myopts, args = getopt.getopt(sys.argv[1:], "p:mdl", ['port=', 'minified', 'debug', 'live'])
 
     for arg, val in myopts:
@@ -141,6 +140,7 @@ if __name__ == "__main__":
 
     init()
     app = tornado.web.Application(handlers, **settings)
+    app.listen(additional_settings['port'])
 
     def fn():
         init()
@@ -156,10 +156,6 @@ if __name__ == "__main__":
 
         http_server = tornado.httpserver.HTTPServer(app, ssl_options=ssl_options)
         http_server.listen(443)
-    else:
-        http_server = tornado.httpserver.HTTPServer(app)
-
-    http_server.listen(additional_settings['port'])
 
     print 'Server restarted..'
     tornado.autoreload.add_reload_hook(fn)
