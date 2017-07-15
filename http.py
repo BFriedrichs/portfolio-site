@@ -66,7 +66,8 @@ class PdfHandler(tornado.web.RequestHandler):
 
 settings = {'debug': False,
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
-            'template_path': os.path.join(os.path.dirname(__file__), 'templates')}
+            'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
+            'compress_response': True}
 
 handlers = [(r'/', MainHandler),
             (r'/mail', MailHandler),
