@@ -119,7 +119,7 @@ def init():
         _JS += ["js/{}".format(file) for file in os.listdir(js_path) if os.path.isfile(os.path.join(js_path,file)) and file.endswith('.js') and file.find('.min') == -1]
 
 if __name__ == "__main__":
-    myopts, args = getopt.getopt(sys.argv[1:], "p:md", ['port=', 'minified', 'debug'])
+    myopts, args = getopt.getopt(sys.argv[1:], "p:mdl:", ['port=', 'minified', 'debug', 'live='])
 
     for arg, val in myopts:
         if arg in ('-p', '--port'):
@@ -144,7 +144,7 @@ if __name__ == "__main__":
         init()
 
     app.listen(additional_settings['port'])
-    print 'Server restarted.."
+    print 'Server restarted..'
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()
 
