@@ -1,4 +1,5 @@
 import tornado.ioloop
+import tornado.httpserver
 import tornado.web
 import tornado.autoreload
 import os
@@ -12,8 +13,13 @@ from itertools import chain
 _CSS = []
 _JS = []
 _IMAGES = {}
+USE_SSL = False
 
 class MainHandler(tornado.web.RequestHandler):
+    def prepare(self):
+        if USE_SSL and self.request.protocol == 'http':
+            self.redirect('https://' + self.request.host, permanent=False)
+
     def get(self):
         self.render("index.html", css=_CSS, js=_JS, images=_IMAGES)
 
@@ -119,7 +125,9 @@ def init():
         _JS += ["js/{}".format(file) for file in os.listdir(js_path) if os.path.isfile(os.path.join(js_path,file)) and file.endswith('.js') and file.find('.min') == -1]
 
 if __name__ == "__main__":
-    myopts, args = getopt.getopt(sys.argv[1:], "p:mdl:", ['port=', 'minified', 'debug', 'live='])
+    myopts, args = getopt.getopt(sys.argv[1:], "p:mdl", ['port=', 'minified', 'debug', 'live'])
+
+    global USE_SSL
 
     for arg, val in myopts:
         if arg in ('-p', '--port'):
@@ -129,13 +137,7 @@ if __name__ == "__main__":
         if arg in ('-d', '--debug'):
             settings['debug'] = True
         if arg in ('-l', '--live'):
-            with open("config.yml", 'r') as ymlfile:
-                cfg = yaml.load(ymlfile)
-
-                settings['ssl_options'] = {
-                    'certfile': os.path.join(cfg['ssl']['path'], 'cert.pem'),
-                    'keyfile': os.path.join(cfg['ssl']['path'], 'privkey.pem'),
-                }
+            USE_SSL = True
 
     init()
     app = tornado.web.Application(handlers, **settings)
@@ -143,7 +145,22 @@ if __name__ == "__main__":
     def fn():
         init()
 
-    app.listen(additional_settings['port'])
+    if USE_SSL:
+        with open("config.yml", 'r') as ymlfile:
+            cfg = yaml.load(ymlfile)
+
+            ssl_options = {
+                'certfile': os.path.join(cfg['ssl']['path'], 'cert.pem'),
+                'keyfile': os.path.join(cfg['ssl']['path'], 'privkey.pem'),
+            }
+
+        http_server = tornado.httpserver.HTTPServer(app, ssl_options=ssl_options)
+        http_server.listen(additional_settings['port'])
+    else:
+        http_server = tornado.httpserver.HTTPServer(app)
+        
+    http_server.listen(additional_settings['port'])
+
     print 'Server restarted..'
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()

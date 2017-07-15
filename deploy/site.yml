@@ -41,4 +41,4 @@
     ignore_errors: True
 
   - name: serve site
-    raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -m -p 443 < /dev/null >/dev/null 2>&1 & sleep 1"
+    raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -m -p 80 -l < /dev/null >/dev/null 2>&1 & sleep 1"
