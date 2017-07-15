@@ -65,16 +65,19 @@ class PdfHandler(tornado.web.RequestHandler):
         self.write(b64decode(escape.url_unescape(self.request.body.split("=")[1])))
 """
 
-settings = {'debug': False,
-            'static_path': os.path.join(os.path.dirname(__file__), 'static'),
-            'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
-            'compress_response': True}
+settings = {
+    'debug': False,
+    'static_path': os.path.join(os.path.dirname(__file__), 'static'),
+    'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
+    'compress_response': True,
+}
 
-handlers = [(r'/', MainHandler),
-            (r'/mail', MailHandler),
-            #(r'/pdf', PdfHandler)
-            #(r'/favicon.ico', tornado.web.StaticFileHandler, {'path': favicon_path}),
-            ]
+handlers = [
+    (r'/', MainHandler),
+    (r'/mail', MailHandler),
+    #(r'/pdf', PdfHandler)
+    #(r'/favicon.ico', tornado.web.StaticFileHandler, {'path': favicon_path}),
+]
 
 additional_settings = {'port': 8000,
                       'minified': False}
@@ -96,7 +99,7 @@ def init():
     for file in os.listdir(image_path):
         for keyword in image_keywords:
             if file.split('.')[0] == keyword:
-                _IMAGES[keyword] =  os.path.join('img', 'compressed', file)
+                _IMAGES[keyword] = os.path.join('img', 'compressed', file)
 
     if additional_settings['minified']:
         _CSS = ['css/style.min.css']
@@ -125,6 +128,14 @@ if __name__ == "__main__":
             additional_settings['minified'] = True
         if arg in ('-d', '--debug'):
             settings['debug'] = True
+        if arg in ('-l', '--live'):
+            with open("config.yml", 'r') as ymlfile:
+                cfg = yaml.load(ymlfile)
+
+                settings['ssl_options'] = {
+                    'certfile': os.path.join(cfg['ssl']['path'], 'cert.pem'),
+                    'keyfile': os.path.join(cfg['ssl']['path'], 'privkey.pem'),
+                }
 
     init()
     app = tornado.web.Application(handlers, **settings)
@@ -133,7 +144,7 @@ if __name__ == "__main__":
         init()
 
     app.listen(additional_settings['port'])
-    print "Server restarted.."
+    print 'Server restarted.."
     tornado.autoreload.add_reload_hook(fn)
     tornado.autoreload.start()
 
