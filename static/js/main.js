@@ -114,6 +114,7 @@ $(document).ready(function () {
         $e = $(e);
 
         var intersection = false
+        var counter = 50
 
         do {
           intersection = false
@@ -123,10 +124,11 @@ $(document).ready(function () {
           for(var i in alreadyAnimated) {
             intersection = intersects($e, alreadyAnimated[i])
             if(intersection) {
+              counter--
               break
             }
           }
-        } while(intersection)
+        } while(intersection && counter > 0)
 
         alreadyAnimated.push($e);
       })
