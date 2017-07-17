@@ -9,6 +9,7 @@ import pdfkit
 import signal
 import yaml
 from itertools import chain
+from datetime import datetime
 
 _CSS = []
 _JS = []
@@ -20,7 +21,7 @@ class MainHandler(tornado.web.RequestHandler):
             self.redirect('https://' + self.request.host, permanent=False)
 
     def get(self):
-        self.render("index.html", css=_CSS, js=_JS, images=_IMAGES)
+        self.render("index.html", css=_CSS, js=_JS, images=_IMAGES, now=datetime.utcnow())
 
 class MailHandler(tornado.web.RequestHandler):
     def post(self):
