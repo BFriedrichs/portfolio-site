@@ -20,7 +20,7 @@
     <div id="header">
       <div id="canvasHeaderContainer"></div>
       <div id="headerImageContainer">
-        <img id="headerImage" src="{{ static_url(images['me_fixed']) }}"></img>
+        <img id="headerImage" src="{{ static_url(images['me_fixed']) }}" alt="Picture of me" />
       </div>
       <ul class="topNav">
         <li id="toAbout">ABOUT</li>
@@ -176,59 +176,13 @@
             and am also interested in various aspects of Design, especially in context of web development.
             Everyone has their own style, but a look left and right - be it only to evaluate or discuss - never hurts.
           </div>
-          <div id="skillCircles">
-            <div class="col-12 skillMostUsed">
-              A ranking of my favourite things to do:
-            </div>
-            <div class="col-md-4 col-6 col-mobile-12 skillCircle">
-              <div class="skillName">
-                  JavaScript
-              </div>
-              <div class="circle">
-                  <svg><path id="circle1_bg" /><path id="circle1" /></svg>
-              </div>
-            </div>
-            <div class="col-md-4 col-6 col-mobile-12 skillCircle">
-              <div class="skillName">
-                  Python
-              </div>
-              <div class="circle">
-                  <svg>
-                    <path id="circle2_bg" /><path id="circle2" />
-              </div>
-            </div>
-            <div class="col-md-4 col-6 col-mobile-12 skillCircle">
-              <div class="skillName">
-                  C / C++
-              </div>
-              <div class="circle">
-                  <svg><path id="circle3_bg" /><path id="circle3" /></svg>
-              </div>
-            </div>
-            <div class="col-md-4 col-6 col-mobile-12 skillCircle">
-              <div class="skillName">
-                  Java
-              </div>
-              <div class="circle">
-                  <svg><path id="circle4_bg" /><path id="circle4" /></svg>
-              </div>
-            </div>
-            <div class="col-md-4 col-6 col-mobile-12 skillCircle">
-              <div class="skillName">
-                  Design
-              </div>
-              <div class="circle">
-                  <svg><path id="circle5_bg" /><path id="circle5" /></svg>
-              </div>
-            </div>
-            <div class="col-md-4 col-6 col-mobile-12 skillCircle">
-              <div class="skillName">
-                  PHP
-              </div>
-              <div class="circle">
-                  <svg><path id="circle6_bg" /><path id="circle6" /></svg>
-              </div>
-            </div>
+          <div id="skillGraph">
+            <div class="skillCircle skillLarge">JavaScript</div>
+            <div class="skillCircle skillMedium">Python</div>
+            <div class="skillCircle skillSmall">C / C++</div>
+            <div class="skillCircle skillLarge">Java</div>
+            <div class="skillCircle skillMedium">PHP</div>
+            <div class="skillCircle skillLarge">CSS</div>
           </div>
         </div>
       </article>

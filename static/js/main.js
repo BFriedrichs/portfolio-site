@@ -86,31 +86,61 @@ $(document).ready(function () {
     })
   }
 
-  var circleValues = [85, 85, 75, 75, 70, 50]
+  var circleDidAnimate = false
 
-  for (var i = 1; i <= circleValues.length; i++) {
-    document.getElementById('circle' + i + '_bg').setAttribute('d', describeArc(80, 80, 70, 0, 359))
+  function intersects($c1, $c2) {
+    var c1Size = $c1.width() * parseFloat($c1.css('transform').split('(')[1].split(',')[0])
+    var c1Left = parseFloat($c1.css('left'))
+    var c1Top = parseFloat($c1.css('top'))
+
+    var c2Size = $c2.width() * parseFloat($c2.css('transform').split('(')[1].split(',')[0])
+    var c2Left = parseFloat($c2.css('left'))
+    var c2Top = parseFloat($c2.css('top'))
+
+    return Math.sqrt(Math.pow(c1Left - c2Left, 2) + Math.pow(c1Top - c2Top, 2)) < c1Size / 2 + c2Size / 2
   }
 
-  var circleDidAnimate = false,
-    time = 0,
-    tick = 10,
-    duration = 3000
   function shouldCirclesAnimate (scrollTop) {
-    var circles = $('#skillCircles')
+    var $circles = $('#skillGraph')
+    var alreadyAnimated = []
 
-    if (!circleDidAnimate && circles.offset().top < scrollTop) {
+    if (!circleDidAnimate && $circles.offset().top < scrollTop) {
       circleDidAnimate = true
-      var buildCircle = setInterval(function () {
-        for (var i = 1; i <= circleValues.length; i++) {
-          var fill = time / 100 * circleValues[i - 1]
-          document.getElementById('circle' + i).setAttribute('d', describeArc(80, 80, 70, 0, fill * 3.6))
+
+      var pHeight = $circles.height() - 100
+      var pWidth = $circles.width() - 100
+
+      $('.skillCircle').each(function(i, e) {
+        $e = $(e);
+
+        var intersection = false
+
+        do {
+          intersection = false
+          $e.css('top', Math.random() * pHeight)
+          $e.css('left', Math.random() * pWidth)
+
+          for(var i in alreadyAnimated) {
+            intersection = intersects($e, alreadyAnimated[i])
+            if(intersection) {
+              break
+            }
+          }
+        } while(intersection)
+
+        alreadyAnimated.push($e);
+      })
+
+      $('.skillCircle').addClass('removeScale')
+
+      var skillPopup = function() {
+        if(alreadyAnimated.length > 0) {
+          var $animated = alreadyAnimated.splice(0, 1)
+          $animated[0].addClass('animatedSkill').removeClass('removeScale')
+          setTimeout(skillPopup, Math.random() * 800)
         }
-        time += (100 / duration) * tick
-        if (time >= 100) {
-          clearTimeout(buildCircle)
-        }
-      }, tick)
+      }
+      setTimeout(skillPopup, Math.random() * 800)
     }
   }
 
