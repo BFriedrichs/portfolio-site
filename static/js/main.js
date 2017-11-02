@@ -72,16 +72,10 @@ $(document).ready(function () {
   }
 
   function shouldFadeAnimate (scrollTop) {
-    $('.fadeLeft').each(function (i, e) {
+    $('.fadeIn').each(function (i, e) {
       var elem = $(e)
       if (elem.offset().top < scrollTop) {
-        elem.removeClass('fadeLeft')
-      }
-    })
-    $('.fadeRight').each(function (i, e) {
-      var elem = $(e)
-      if (elem.offset().top < scrollTop) {
-        elem.removeClass('fadeRight')
+        elem.addClass('fade')
       }
     })
   }

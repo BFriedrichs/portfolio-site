@@ -608,19 +608,20 @@ article:last-child {
 @media(min-width: 769px) {
 
   .fadeIn {
-    margin-left: 0;
-    margin-right: 0;
     transition: all .5s;
-    opacity: 1;
+    opacity: 0;
   }
 
-  .fadeRight {
+  .fadeIn:nth-child(even) {
     margin-right: -20px;
-    opacity: 0;
   }
 
-  .fadeLeft {
+  .fadeIn:nth-child(odd) {
     margin-left: -20px;
-    opacity: 0;
+  }
+
+  .fade {
+    opacity: 1;
+    margin: 0 !important;
   }
 }
