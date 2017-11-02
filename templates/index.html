@@ -26,17 +26,19 @@
     </script>
   </head>
   <body>
-    <div id="header">
+    <div id="topBar">
       <div id="canvasHeaderContainer"></div>
-      <div id="headerImageContainer">
-        <img id="headerImage" src="{{ static_url(images['me_fixed']) }}" alt="Picture of me" />
-      </div>
-      <ul class="topNav">
+      <ul id="topNav">
         <li id="toAbout">ABOUT</li>
         <li id="toResume">RESUME</li>
         <li id="toSkills">SKILLS</li>
         <li id="toContact">CONTACT</li>
       </ul>
+    </div>
+    <div id="header">
+      <div id="headerImageContainer">
+        <img id="headerImage" src="{{ static_url(images['me_fixed']) }}" alt="Picture of me" />
+      </div>
     </div>
     <div id="content">
       <article id="about" class="col-offset-mobile-1 col-mobile-10 col-offset-2 col-8">

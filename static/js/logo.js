@@ -1,7 +1,7 @@
 var PIXI = PIXI || window.PIXI
 var canvasHeaderContainer = canvasHeaderContainer || document.getElementById('canvasHeaderContainer')
 
-var renderer = PIXI.autoDetectRenderer(1, 1, {
+var renderer = PIXI.autoDetectRenderer(1000, 200, {
   transparent: true,
   antialias: true
 })
@@ -22,9 +22,11 @@ graphicsContainer.addChild(logoCircleMask)
 var logoOutline = new PIXI.Graphics()
 logoCircle.addChild(logoOutline)
 
+var opacity = 0.3
+
 function logoTextFactory () {
   return new PIXI.Text('BF', {fontFamily: 'OpenSans',
-    fontSize: canvasHeaderContainer.clientHeight / 4,
+    fontSize: Math.round(canvasHeaderContainer.clientHeight / 4),
     fontWeight: 'bold',
     fill: 0xFFFFFF,
     align: 'left'})
@@ -100,11 +102,11 @@ function redrawLogo () {
   if (didResize) {
     logoOutline.clear()
     logoOutline.lineStyle(4, 0xFFFFFF)
-    logoOutline.beginFill(0x000000, 0.3)
+    logoOutline.beginFill(0x000000, opacity)
     logoOutline.drawCircle(0, 0, logoCircleSize)
     logoOutline.endFill()
     logoOutline.lineStyle(1, 0xFFFFFF)
-    logoOutline.drawCircle(0, 0, logoCircleSize - 10)
+    logoOutline.drawCircle(0, 0, logoCircleSize - logoCircleSize / 6)
 
     logoCircleMask.clear()
     logoCircleMask.beginFill(0xFF0000)
@@ -115,7 +117,7 @@ function redrawLogo () {
     logoCircleMask.y = logoCircle.y = canvasHeaderContainer.clientHeight / 2
 
     logoText.x = -logoText.width / 2
-    logoText.y = -logoText.height / 2 + 5
+    logoText.y = -logoText.height / 2
 
     didResize = false
   }
@@ -123,13 +125,22 @@ function redrawLogo () {
   addExtras()
 }
 
+$('#topNav').on('mouseover', function() {
+  opacity = 0.55
+  didResize = true
+})
+
+$('#topNav').on('mouseout', function() {
+  opacity = 0.3
+  didResize = true
+})
+
 animate()
 function animate () {
   setTimeout(function () {
     window.requestAnimationFrame(animate)
 
     redrawLogo()
-
     renderer.render(stage)
   }, 1000 / 140)
 }
@@ -138,6 +149,14 @@ resize()
 function resize () {
   if (renderer) {
     renderer.resize(canvasHeaderContainer.clientWidth, canvasHeaderContainer.clientHeight)
+    for(var i in bubbles) {
+      var bubble = bubbles[i]
+      if(bubble.init) {
+        bubble.x += (canvasHeaderContainer.clientHeight / 4 - logoCircleSize) / 4
+        bubble.y += (canvasHeaderContainer.clientHeight / 4 - logoCircleSize) / 4
+        bubble.max_size += (canvasHeaderContainer.clientHeight - logoMaxSize) / 8
+      }
+    }
   }
 
   logoCircleSize = canvasHeaderContainer.clientHeight / 4
@@ -148,5 +167,8 @@ function resize () {
   logoExtra.mask = logoText
   logoCircle.addChild(logoText)
   didResize = true
+
+  redrawLogo()
+  renderer.render(stage)
 }
 window.onresize = resize

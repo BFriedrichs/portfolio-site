@@ -16,11 +16,15 @@ $(document).ready(function () {
   var jwindow = $(window)
   var ignoreScrollActions = false
   var scrollSpeed = 0.05
+  var canvasContainer = document.getElementById('canvasHeaderContainer')
+  var header = document.getElementById('header')
 
   window.onscroll = function () {
+    animateLogo();
+
     if (!ignoreScrollActions) {
       var scrollTop = jwindow.scrollTop() + jwindow.height()
-
+      
       shouldFadeAnimate(scrollTop)
       shouldCirclesAnimate(scrollTop)
       shouldFormAnimate(scrollTop)
@@ -47,6 +51,18 @@ $(document).ready(function () {
       text: 'Your message',
       elem: $("label[for='formMsg']")
     }
+  }
+
+  function eQ(t) { return t*(2-t) }
+
+  animateLogo()
+  function animateLogo() {
+    var scroll = jwindow.scrollTop()
+    var height = parseInt(header.clientHeight) - scroll
+    height = eQ(height / header.clientHeight) * header.clientHeight
+    height = Math.max(height, 100)
+    canvasContainer.style.height = height + 'px'
+    window.onresize()
   }
 
   var anim = {}
