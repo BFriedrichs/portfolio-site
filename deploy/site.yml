@@ -3,11 +3,13 @@
 
   vars:
     http_port: 80
-    dest: ~/web
+    dest: web
     git_name: portfolio-site
     user: bjoern
 
   remote_user: "{{ user }}"
+
+  become: yes
 
   tasks:
   - name: deps
@@ -17,28 +19,24 @@
        - nodejs
        - libjpeg-dev
        - zlib1g-dev
-    sudo: True
-
-  - name: install packages
-    pip: "requirements={{ dest }}/{{ git_name }}/requirements.txt"
-
-  - name: copy config
-    copy: "src=config.yml dest={{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
 
   - name: clone git
+    become_user: "{{ user }}"
     git:  repo="git@github.com:BFriedrichs/{{ git_name }}.git"
-          dest="{{ dest }}/{{ git_name }}"
+          dest="/home/{{ user }}/{{ dest }}/{{ git_name }}"
           accept_hostkey=yes
           force=yes
+          
+  - name: copy config
+    copy: "src=config.yml dest=/home/{{ user }}/{{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
+
+  - name: install packages
+    pip: "requirements=/home/{{ user }}/{{ dest }}/{{ git_name }}/requirements.txt"
 
   - name: minify
     command: python minify.py
     args:
-      chdir: "{{ dest }}/{{ git_name }}"
-
-  - name: make sure no process is running
-    raw: "sudo kill $(pgrep -f http.py)"
-    ignore_errors: True
+      chdir: "/home/{{ user }}/{{ dest }}/{{ git_name }}"
 
   - name: serve site
-    raw: "cd {{ dest }}/{{ git_name }}; nohup sudo python http.py -m -p 80 -l < /dev/null >/dev/null 2>&1 & sleep 1"
+    raw: "cd /home/{{ user }}/{{ dest }}/{{ git_name }}; nohup sudo python http.py -m -p 80 -l < /dev/null >/dev/null 2>&1 & sleep 1"

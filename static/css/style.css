@@ -106,14 +106,6 @@ body {
   cursor: pointer;
 }
 
-#topNav li:nth-child(3) {
-  margin-left: 80px;
-}
-
-#topNav li:nth-child(3):hover {
-  margin-left: 73px !important;
-}
-
 #topNav li::before, #topNav li::after {
   display: inline-block;
   width: 0;
@@ -129,6 +121,10 @@ body {
 
 #topNav li:hover::before, #topNav li:hover::after {
   width: 7px;
+}
+
+#toSkills, #toContact {
+  float: right !important;
 }
 
 article {
@@ -633,20 +629,12 @@ article:last-child {
 
 @media(max-width: 768px) {
   #topNav {
-    width: 250px;
-  }
-
-  #topNav li:nth-child(3) {
-    margin-left: 55px;
-  }
-
-  #topNav li:nth-child(3):hover {
-    margin-left: 55px !important;
+    width: 300px;
   }
 
   #topNav li {
       float: left;
-      margin: 17px 6px;
+      margin: 17px 10px;
       font-weight: bold;
       font-size: 0.7em;
       transition: all .3s;
@@ -663,7 +651,7 @@ article:last-child {
   }
   
   #topNav li:hover {
-    margin: 17px 6px;
+    margin: 17px 10px;
   }
   
   #topNav li:hover::before, #topNav li:hover::after {
