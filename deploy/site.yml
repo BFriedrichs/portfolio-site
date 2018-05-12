@@ -12,21 +12,13 @@
   become: yes
 
   tasks:
-  - name: deps
-    apt: name={{item}} state=installed
-    with_items:
-       - python-dev
-       - nodejs
-       - libjpeg-dev
-       - zlib1g-dev
-
   - name: clone git
     become_user: "{{ user }}"
     git:  repo="git@github.com:BFriedrichs/{{ git_name }}.git"
           dest="/home/{{ user }}/{{ dest }}/{{ git_name }}"
           accept_hostkey=yes
           force=yes
-          
+
   - name: copy config
     copy: "src=config.yml dest=/home/{{ user }}/{{ dest }}/{{ git_name }}/config.yml owner={{ user }} group={{ user }} mode=0644"
 

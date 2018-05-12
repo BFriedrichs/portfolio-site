@@ -20,5 +20,4 @@ website
 
 ### deployment
 
-* ssh-add
-* ansible-playbook site.yml -i hosts
+* docker run -d --name main -e 'LETSENCRYPT_EMAIL=bjoern@friedrichs1.de' -e 'LETSENCRYPT_HOST=bjoern-friedrichs.de' -e 'VIRTUAL_HOST=bjoern-friedrichs.de' bfriedrichs/portfolio
